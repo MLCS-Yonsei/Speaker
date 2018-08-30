@@ -17,10 +17,13 @@ target_ips = ['ubuntu.hwanmoo.kr:8080']
 dev = True
 audio_overlap = True
 enable_broadcasting = False
+oposite_gender_speaker = True
 
 def init_var():
     return {
-        'person_attr': None,
+        'person_attr': {
+            'gender': 'M'
+        },
         'intro': False,
         'playing': False,
         'outro': False,
@@ -70,7 +73,7 @@ while True:
             '''
             cam = _v['cam']
             # print(_v['person_attr'])
-            if _v['person_attr'] == None:
+            if _v['person_attr']['gender'] == None:
                 while True:
                     human_box = detect_human(cam)
                     gender = detect_gender(human_box)
@@ -79,9 +82,7 @@ while True:
                         break
 
                 # print("G:",gender)
-                _v['person_attr'] = {
-                    'gender': gender
-                }
+                _v['person_attr']['gender'] = gender
 
                 print("#1")
             else:
@@ -149,11 +150,19 @@ while True:
             if s_type == 'NV':
                 audio_player = _v['audio_player']
                 target = ''
+                speaker_gender = None
             elif s_type == 'BR':
                 audio_player = local_audio_player
                 # 여기에서 플레이어 비교
                 target = 'P1'
-            
+                speaker_gender = _v['person_attr']['gender']
+
+                if oposite_gender_speaker == True:
+                    if speaker_gender == 'M':
+                        speaker_gender = 'F'
+                    else:
+                        speaker_gender = 'M'
+        
             rb_data = None
             if lap_distance_result is not False:
                 rb_data = lap_distance_result
@@ -166,12 +175,12 @@ while True:
 
             if rb_data is not None and audio_overlap is False:
                 # 오디오 중첩 없이 재생
-                audio_player.play(rb_data, s_type, target)
+                audio_player.play(rb_data, s_type, speaker_gender, target)
             elif rb_data is not None and audio_overlap is True:
                 # 오디오 중첩 재생
                 if _v['audio_thread'] is None:
                     # print("Playing audio")
-                    _v['audio_thread'] = Thread(target=audio_player.play, args=(rb_data, s_type, target))
+                    _v['audio_thread'] = Thread(target=audio_player.play, args=(rb_data, s_type, speaker_gender, target))
                     _v['audio_thread'].start()
                     # print(_v['audio_thread'].isAlive())
 

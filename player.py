@@ -49,17 +49,25 @@ def make_chunks(audio_segment, chunk_length):
 
 @app.route('/play', methods=['GET'])
 def play():
-    req = request.args.get('path')
+    req_path = request.args.get('path')
+    speaker = request.args.get('speaker')
+
+    if speaker == 'Jiwoong':
+        audio_format = pyaudio.paInt16
+    elif speaker == 'Ari':
+        audio_format = pyaudio.paInt32
+    else:
+        audio_format = pyaudio.paInt16
 
     # file_path = os.path.join(dir,'bin')
     file_path = dir
-    for p in req.split('/'):
+    for p in req_path.split('/'):
         if len(p) is not 0:
             file_path = os.path.join(file_path,p)
 
     seg = AudioSegment.from_wav(file_path)
     p = pyaudio.PyAudio()
-    stream = p.open(format=pyaudio.paInt32,
+    stream = p.open(format=audio_format,
                     channels=seg.channels,
                     rate=seg.frame_rate,
                     output=True)
