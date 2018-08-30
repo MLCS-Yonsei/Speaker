@@ -44,7 +44,7 @@ class audioPlayer():
         self.audio_files = dicts
 
     def playFile(self, file_path):
-        print("Playing...",file_path)
+        print("Playing...",file_path, self.target_ip)
 
         speaker = list(filter(lambda af: af['file_name'] == file_path, self.audio_files))[0]['speaker']
 

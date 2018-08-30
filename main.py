@@ -192,10 +192,10 @@ while True:
                         speaker_gender = 'M'
         
             rb_data = None
-            if lap_distance_result is not False and lap_distance_result['flag'] is not 'random':
-                rb_data = lap_distance_result
-            elif overtake_result is not False:
+            if overtake_result is not False:
                 rb_data = overtake_result
+            elif lap_distance_result is not False and lap_distance_result['flag'] is not 'random':
+                rb_data = lap_distance_result
             elif crash_result is not False:
                 rb_data = crash_result
             elif chase_result is not False:

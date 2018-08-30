@@ -16,9 +16,10 @@ def lap_distance(data, target_ip, t):
     result['target_ip'] = target_ip
     result['flag'] = 'lapDistance'
 
+    sim_index = get_sim_name(target_ip,gamedata)
     lap_length = gamedata["eventInformation"]["mTrackLength"] # 랩 길이
-    lap_completed = gamedata["participants"]["mParticipantInfo"][0]["mLapsCompleted"]
-    lap_distance = gamedata["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"] + lap_length * lap_completed
+    lap_completed = gamedata["participants"]["mParticipantInfo"][sim_index]["mLapsCompleted"]
+    lap_distance = gamedata["participants"]["mParticipantInfo"][sim_index]["mCurrentLapDistance"] + lap_length * lap_completed
     racestate= gamedata["gameStates"]["mRaceState"]
 
     result['data'] = {
