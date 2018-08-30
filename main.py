@@ -20,7 +20,7 @@ target_ips = [
 dev = True
 audio_overlap = True
 enable_broadcasting = False
-oposite_gender_speaker = True
+oposite_gender_speaker = False
 
 def init_var():
     return {
