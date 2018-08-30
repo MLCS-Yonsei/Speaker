@@ -97,6 +97,9 @@ def start():
     cmd = 'J'
     SendKeys(cmd)
 
+    cmd = 'j'
+    SendKeys(cmd)
+
     for i in range(1,6):
         cmd = '{UP}'
         SendKeys(cmd)
