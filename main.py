@@ -13,7 +13,10 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase
 
 import multiprocessing as mp
 
-target_ips = ['ubuntu.hwanmoo.kr:8080']
+target_ips = [
+    'ubuntu.hwanmoo.kr:8080',
+    '192.168.0.56:8080'
+]
 dev = True
 audio_overlap = True
 enable_broadcasting = False
@@ -22,7 +25,7 @@ oposite_gender_speaker = True
 def init_var():
     return {
         'person_attr': {
-            'gender': 'M'
+            'gender': 'F'
         },
         'intro': False,
         'playing': False,
@@ -145,12 +148,19 @@ while True:
             if enable_broadcasting is True:
                 s_type = random.choice(['NV', 'BR'])
             elif enable_broadcasting is False:
-                s_type = 'BR'
+                s_type = 'NV'
 
             if s_type == 'NV':
                 audio_player = _v['audio_player']
                 target = ''
-                speaker_gender = None
+
+                speaker_gender = _v['person_attr']['gender']
+
+                if oposite_gender_speaker == True:
+                    if speaker_gender == 'M':
+                        speaker_gender = 'F'
+                    else:
+                        speaker_gender = 'M'
             elif s_type == 'BR':
                 audio_player = local_audio_player
                 # 여기에서 플레이어 비교
@@ -164,7 +174,7 @@ while True:
                         speaker_gender = 'M'
         
             rb_data = None
-            if lap_distance_result is not False:
+            if lap_distance_result is not False and lap_distance_result['flag'] is not 'random':
                 rb_data = lap_distance_result
             elif overtake_result is not False:
                 rb_data = overtake_result
@@ -172,6 +182,8 @@ while True:
                 rb_data = crash_result
             elif chase_result is not False:
                 rb_data = chase_result
+            elif lap_distance_result is not False and lap_distance_result['flag'] is 'random':
+                rb_data = lap_distance_result
 
             if rb_data is not None and audio_overlap is False:
                 # 오디오 중첩 없이 재생
@@ -201,7 +213,7 @@ while True:
                 a_thread = Thread(target = playFile, args = (target_ip,'test_outro', ))
                 a_thread.start()
 
-                print("Playing intro file, sleep for ", 5, "Seconds")
+                print("Playing outro file, sleep for ", 5, "Seconds", target_ip)
                 
                 a_thread.join()
 
@@ -220,7 +232,7 @@ while True:
                 a_thread = Thread(target = playFile, args = (target_ip,'test_outro', ))
                 a_thread.start()
 
-                print("Playing intro file, sleep for ", 5, "Seconds")
+                print("Playing intro file, sleep for ", 5, "Seconds", target_ip)
                 
                 a_thread.join()
 

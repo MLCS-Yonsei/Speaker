@@ -57,7 +57,7 @@ def play():
     elif speaker == 'Ari':
         audio_format = pyaudio.paInt32
     else:
-        audio_format = pyaudio.paInt16
+        audio_format = pyaudio.paInt32
 
     # file_path = os.path.join(dir,'bin')
     file_path = dir

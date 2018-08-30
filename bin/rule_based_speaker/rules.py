@@ -1,8 +1,9 @@
 import random
 import sqlite3
+import datetime
 
 def lap_distance(data, target_ip, t):
-    msg_rate = 0.005
+    msg_rate = 0.003
 
     gamedata = data['gamedata']
     current_time = data['current_time']
@@ -113,7 +114,7 @@ def get_rank(data):
 
 def get_sim_name(target_ip, gamedata):
     participants = gamedata['participants']['mParticipantInfo']
-
+    # print(participants)
     # DB for config
     conn = sqlite3.connect("./config/db/test.db")
     cur = conn.cursor()
@@ -160,7 +161,7 @@ def overtake(data, target_ip, r0_t0):
             if len(ranks) > 1:
                 r0_t1 = ranks[sim_index]
                 
-                if r0_t0 != 0:
+                if r0_t0 != 0 and r0_t0 is not None:
                     
                     if r0_t0 > r0_t1:
                         # Overtaked

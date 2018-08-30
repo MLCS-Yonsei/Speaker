@@ -46,7 +46,7 @@ class audioPlayer():
     def playFile(self, file_path):
         print("Playing...",file_path)
 
-        speaker = list(filter(lambda af: af['file_name'] == file_pathand af['speaker'] == speaker, self.audio_files))[0]['speaker']
+        speaker = list(filter(lambda af: af['file_name'] == file_path, self.audio_files))[0]['speaker']
 
         if speaker == 'Jiwoong':
             audio_format = pyaudio.paInt16
@@ -82,6 +82,7 @@ class audioPlayer():
 
     def play(self, data, s_type, gender, target=''):
         method = getattr(self, data['flag'], lambda: "nothing")
+        # print(gender)
         if gender == 'M':
             speaker = 'Jiwoong'
         elif gender == 'F':
@@ -94,11 +95,11 @@ class audioPlayer():
 
         if status:
             # 추월함
-            audio_files = list(filter(lambda af: af['category1'] == 'OT' and af['category2'] == 'S' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'OT' and af['category2'] == 'S' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
             
         else:
             # 추월당함
-            audio_files = list(filter(lambda af: af['category1'] == 'OT' and af['category2'] == 'F' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'OT' and af['category2'] == 'F' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
     
         audio_file = random.choice(audio_files)
         self.playFile(audio_file['file_name'])
@@ -113,28 +114,28 @@ class audioPlayer():
         if alone:
             if rank == 1:
                 # 앞선 독주
-                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'AL1' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'AL1' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
             elif rank > 1:
                 # 뒤쳐진 독주
-                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'AL2' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'AL2' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         else:
             if chase and acc:
                 # 잘쫓아감
-                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'CS' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'CS' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
                 
             elif chase and (not acc):
                 # 잘못쫓아감
-                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'CF' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'CF' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
             elif (not chase) and acc:
                 # 잘도망감
-                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'RS' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'RS' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
             elif (not chase) and (not acc):
                 # 잘못도망감
-                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'RF' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+                audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'RF' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         audio_file = random.choice(audio_files)
         self.playFile(audio_file['file_name'])
@@ -144,15 +145,15 @@ class audioPlayer():
         print("Coll ", crash_state)
         if crash_state == 1:
             # 충격 Lv.1
-            audio_files = list(filter(lambda af: af['category1'] == 'CO' and af['category2'] == 'D1' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'CO' and af['category2'] == 'D1' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
             
         elif crash_state == 2:
             # 충격 Lv.2
-            audio_files = list(filter(lambda af: af['category1'] == 'CO' and af['category2'] == 'D2' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'CO' and af['category2'] == 'D2' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         elif crash_state >= 3:
             # 충격 Lv.3
-            audio_files = list(filter(lambda af: af['category1'] == 'CO' and af['category2'] == 'D3' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'CO' and af['category2'] == 'D3' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
         else:
             audio_files = []
 
@@ -177,7 +178,7 @@ class audioPlayer():
         #     audio_files =   list(range(163,164))
 
         if event == 'random':
-            audio_files = list(filter(lambda af: af['category1'] == 'RD' and af['type'] == s_typeand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'RD' and af['type'] == s_type and af['speaker'] == speaker, self.audio_files))
 
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)
@@ -185,48 +186,48 @@ class audioPlayer():
 
     def lapDistance(self, data, s_type, speaker='', target=''):
         event = data['event']
-
+        print(s_type, speaker, target)
         audio_files = []
         if event == 'start':
             # 시작
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'ST' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'ST' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
             
         elif event == 'tunnel':
             # 터널
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'T' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'T' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
         
         elif event == 'deep_curve':
             # 급한커브
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'C3' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'C3' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         elif event == 'curve':
             # 커브
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and (af['category2'] == 'C1' or af['category2'] == 'C2') and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and (af['category2'] == 'C1' or af['category2'] == 'C2') and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         elif event == 'straight':
             # 직선
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'SR' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'SR' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         elif event == 'finish':
             # 종료
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'E' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'E' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         elif event == 'section_1':
             # 1구간
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'T1' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'T1' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         elif event == 'section_2':
             # 2구간
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'T2' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'T2' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         elif event == 'section_3':
             # 3구간
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'T3' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'T3' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         elif event == 'r_finish':
             # 종료 후
-            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'FIN' and af['type'] == s_type and af['target'] == targetand af['speaker'] == speaker, self.audio_files))
-
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'FIN' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
+        print(audio_files)
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)
             self.playFile(audio_file['file_name'])
