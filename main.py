@@ -21,6 +21,7 @@ dev = True
 audio_overlap = True
 enable_broadcasting = False
 oposite_gender_speaker = False
+enable_half_voice = True
 
 def init_var():
     return {
@@ -166,7 +167,10 @@ while True:
             if enable_broadcasting is True:
                 s_type = random.choice(['NV', 'BR'])
             elif enable_broadcasting is False:
-                s_type = 'NV'
+                if enable_half_voice is True:
+                    s_type = 'HFNV'
+                else:
+                    s_type = 'NV'
 
             if s_type == 'NV':
                 audio_player = _v['audio_player']
