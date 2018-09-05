@@ -7,8 +7,9 @@ import requests
 import csv
 import random
 
+import datetime
 import time
-import os
+import os, errno
 
 from math import log, ceil, floor
 dir = os.path.dirname(os.path.abspath(__file__))
@@ -42,9 +43,20 @@ class audioPlayer():
             dicts = [dict(_) for _ in files]
 
         self.audio_files = dicts
+        self.subject_id = 0
+
+        self.log_directory = './audio_log/' + str(self.subject_id) +'/'
+        try:
+            os.makedirs(self.log_directory)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
 
     def playFile(self, file_path):
         print("Playing...",file_path, self.target_ip)
+        
+        with open(self.log_directory+str(datetime.datetime.now()) + '_' + file_path, 'w') as log_file:
+            pass
 
         speaker = list(filter(lambda af: af['file_name'] == file_path, self.audio_files))[0]['speaker']
 
