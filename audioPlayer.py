@@ -83,10 +83,13 @@ class audioPlayer():
     def play(self, data, s_type, gender, target=''):
         method = getattr(self, data['flag'], lambda: "nothing")
         # print(gender)
-        if gender == 'M':
-            speaker = 'Jiwoong'
-        elif gender == 'F':
-            speaker = 'Ari'
+        if s_type == 'HFNV':
+            speaker = 'Ari_half'
+        else:
+            if gender == 'M':
+                speaker = 'Jiwoong'
+            elif gender == 'F':
+                speaker = 'Ari'
 
         method(data['data'], s_type, speaker, target)
 
