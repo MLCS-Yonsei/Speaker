@@ -194,6 +194,11 @@ while True:
                         speaker_gender = 'F'
                     else:
                         speaker_gender = 'M'
+            elif s_type == 'HFNV':
+                audio_player = _v['audio_player']
+                target = ''
+
+                speaker_gender = 'F'
         
             rb_data = None
             if overtake_result is not False:
