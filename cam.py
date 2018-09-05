@@ -14,7 +14,7 @@ except OSError as e:
     if e.errno != errno.EEXIST:
         raise
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(cam_id)
 while True:
     ret, frame = cap.read()
     cv2.imwrite(directory+str(datetime.datetime.now())+'.jpg', frame)
