@@ -18,12 +18,17 @@ PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
 PyCWnd1.SetForegroundWindow()
 PyCWnd1.SetFocus()
 
+def keyPress(keys, key):
+    keys.directKey(key)
+    sleep(0.04)
+    keys.directKey(key, keys.key_release)
+
 keys = Keys()
-keys.directKey("J")
-keys.directKey("j")
+keyPress("J")
+keyPress("j")
 
 for i in range(1,6):
-    keys.directKey("UP")
-    keys.directKey("LEFT")
+    keyPress("UP")
+    keyPress("LEFT")
 
-keys.directKey("RETURN")
+keyPress("RETURN")
