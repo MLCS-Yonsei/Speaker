@@ -9,6 +9,7 @@ import serial
 import serial.tools.list_ports
 
 from bin.keys import Keys
+from time import time, sleep
 
 # Move to bottom of the menu
 shell = win32com.client.Dispatch("WScript.Shell")
