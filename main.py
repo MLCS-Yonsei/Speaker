@@ -14,14 +14,14 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase
 import multiprocessing as mp
 
 target_ips = [
-    'ubuntu.hwanmoo.kr:8080',
-    '192.168.0.56:8080'
+    '192.168.0.52:9090',
+    # '192.168.0.2:9090'
 ]
 dev = True
 audio_overlap = True
 enable_broadcasting = False
 oposite_gender_speaker = False
-enable_half_voice = True
+enable_half_voice = False
 
 def init_var():
     return {

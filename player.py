@@ -95,12 +95,12 @@ def keyPress(keys, key):
 @app.route('/start', methods=['GET'])
 def start():
     # Move to bottom of the menu
-    shell = win32com.client.Dispatch("WScript.Shell")
-    shell.SendKeys('%')
+    # shell = win32com.client.Dispatch("WScript.Shell")
+    # shell.SendKeys('%')
     
-    PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
-    PyCWnd1.SetForegroundWindow()
-    PyCWnd1.SetFocus()
+    # PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
+    # PyCWnd1.SetForegroundWindow()
+    # PyCWnd1.SetFocus()
     
     keys = Keys()
     keyPress(keys, "J")
