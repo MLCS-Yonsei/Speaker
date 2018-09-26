@@ -84,6 +84,11 @@ def play():
 
     return jsonify({}), 200
 
+def keyPress(keys, key):
+    keys.directKey(key)
+    sleep(0.04)
+    keys.directKey(key, keys.key_release)
+
 @app.route('/start', methods=['GET'])
 def start():
     # Move to bottom of the menu
@@ -94,22 +99,15 @@ def start():
     PyCWnd1.SetForegroundWindow()
     PyCWnd1.SetFocus()
     
-    cmd = 'J'
-    SendKeys(cmd)
-
-    cmd = 'j'
-    SendKeys(cmd)
+    keys = Keys()
+    keyPress(keys, "J")
+    keyPress(keys, "j")
 
     for i in range(1,6):
-        cmd = '{UP}'
-        SendKeys(cmd)
+        keyPress(keys, "UP")
+        keyPress(keys, "LEFT")
 
-        cmd = '{LEFT}'
-        SendKeys(cmd)
-
-    # Hit Return
-    cmd = '{ENTER}'
-    SendKeys(cmd)
+    keyPress(keys, "RETURN")
   
     return jsonify({}), 200
 
