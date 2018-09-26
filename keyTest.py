@@ -8,15 +8,7 @@ import win32com.client
 import serial
 import serial.tools.list_ports
 
-# from utils import send_crest_requset
-import multiprocessing as mp
-import time
-import json
-
-import redis
-import socket
-
-from utils.keys import Keys
+from bin.keys import Keys
 
 # Move to bottom of the menu
 shell = win32com.client.Dispatch("WScript.Shell")
