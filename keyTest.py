@@ -24,11 +24,11 @@ def keyPress(keys, key):
     keys.directKey(key, keys.key_release)
 
 keys = Keys()
-keyPress("J")
-keyPress("j")
+keyPress(keys, "J")
+keyPress(keys, "j")
 
 for i in range(1,6):
-    keyPress("UP")
-    keyPress("LEFT")
+    keyPress(keys, "UP")
+    keyPress(keys, "LEFT")
 
-keyPress("RETURN")
+keyPress(keys, "RETURN")
