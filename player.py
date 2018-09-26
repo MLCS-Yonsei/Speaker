@@ -88,9 +88,9 @@ def play():
     return jsonify({}), 200
 
 def keyPress(keys, key):
-    keys.virtualKey(key)
+    keys.directKey(key)
     sleep(0.04)
-    keys.virtualKey(key, keys.key_release)
+    keys.directKey(key, keys.key_release)
 
 @app.route('/start', methods=['GET'])
 def start():
