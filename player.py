@@ -20,6 +20,9 @@ import win32com.client
 from pywinauto.application import Application
 from pywinauto.keyboard import SendKeys
 
+from bin.keys import Keys
+from time import time, sleep
+
 from math import log, ceil, floor
 
 dir = os.path.dirname(os.path.abspath(__file__))
