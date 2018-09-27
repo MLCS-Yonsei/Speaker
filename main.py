@@ -9,7 +9,7 @@ from threading import Thread
 
 import requests 
 
-from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase
+from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing
 
 import multiprocessing as mp
 
@@ -22,6 +22,7 @@ audio_overlap = True
 enable_broadcasting = False
 oposite_gender_speaker = False
 enable_half_voice = False
+car_position_reset_time = 5
 
 def init_var():
     return {
@@ -36,7 +37,9 @@ def init_var():
         'prev_crash': None,
         'recent_fcar_distances': [],
         'recent_scar_distances': [],
-        'audio_thread': None
+        'audio_thread': None,
+        'lap_distance': 0,
+        'lap_distance_time': None
     }
 
 def reset_game_var(var):
@@ -46,6 +49,8 @@ def reset_game_var(var):
     var['prev_crash'] = None
     var['recent_fcar_distances'] = []
     var['recent_scar_distances'] = []
+    var['lap_distance'] = 0
+    var['lap_distance_time'] = None
 
     return var
 
@@ -157,6 +162,7 @@ while True:
 
             #     pool.close()
             #     pool.join()
+            _v['lap_distance'], _v['lap_distance_time'] = check_reset_timing(gamedata, _v['lap_distance'], _v['lap_distance_time'], target_ip, car_position_reset_time)
 
             lap_distance_result, _v['lap_distance_t'] = lap_distance(gamedata, target_ip, _v['lap_distance_t'])
             overtake_result, _v['overtake_r0_t0'] = overtake(gamedata, target_ip, _v['overtake_r0_t0'])

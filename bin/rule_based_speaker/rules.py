@@ -1,6 +1,36 @@
 import random
 import sqlite3
 import datetime
+from datetime import datetime
+import requests 
+
+def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
+    gamedata = data['gamedata']
+
+    sim_index = get_sim_name(target_ip,gamedata)
+    lap_length = gamedata["eventInformation"]["mTrackLength"] # 랩 길이
+    lap_completed = gamedata["participants"]["mParticipantInfo"][sim_index]["mLapsCompleted"]
+    lap_distance = gamedata["participants"]["mParticipantInfo"][sim_index]["mCurrentLapDistance"] + lap_length * lap_completed
+
+    if t is None:
+        t = datetime.now()
+
+    if lap_distance > 0:
+        if int(d) == int(lap_distance):
+            cur_t = datetime.now()
+
+            delta = cur_t - t
+            if delta.seconds > car_position_reset_time:
+                # 리셋
+                print("Reset the car")
+                url = 'http://' + target_ip.split(':')[0] + ':3000/car_position_reset'
+                r = requests.get(url)
+
+                t = None
+        else:
+            t = datetime.now()
+
+    return lap_distance, t
 
 def lap_distance(data, target_ip, t):
     msg_rate = 0.003

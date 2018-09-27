@@ -114,5 +114,21 @@ def start():
   
     return jsonify({}), 200
 
+@app.route('/car_position_reset', methods=['GET'])
+def car_position_reset():
+    # Move to bottom of the menu
+    shell = win32com.client.Dispatch("WScript.Shell")
+    shell.SendKeys('%')
+    
+    PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
+    PyCWnd1.SetForegroundWindow()
+    PyCWnd1.SetFocus()
+    
+    keys = Keys()
+
+    keyPress(keys, "RETURN")
+  
+    return jsonify({}), 200
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, port=3000)
