@@ -3,6 +3,8 @@ import sqlite3
 import datetime
 from datetime import datetime
 import requests 
+from threading import Thread
+from utils import *
 
 def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
     gamedata = data['gamedata']
@@ -13,22 +15,27 @@ def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
     lap_distance = gamedata["participants"]["mParticipantInfo"][sim_index]["mCurrentLapDistance"] + lap_length * lap_completed
 
     if t is None:
-        t = datetime.now()
+        t = datetime.datetime.now()
 
     if lap_distance > 0:
         if int(d) == int(lap_distance):
-            cur_t = datetime.now()
+            cur_t = datetime.datetime.now()
 
             delta = cur_t - t
             if delta.seconds > car_position_reset_time:
                 # 리셋
                 print("Reset the car")
+                a_thread = Thread(target = playFile, args = (target_ip,'test_reset_car', ))
+                a_thread.start()
+
                 url = 'http://' + target_ip.split(':')[0] + ':3000/car_position_reset'
                 r = requests.get(url)
 
+                a_thread.join()
+
                 t = None
         else:
-            t = datetime.now()
+            t = datetime.datetime.now()
 
     return lap_distance, t
 

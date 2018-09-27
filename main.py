@@ -1,6 +1,6 @@
 # send_crest_request
 from utils import *
-# from detection import Cam, detect_hand, detect_human, detect_gender
+from detection import Cam, detect_hand, detect_human, detect_gender
 from audioPlayer import audioPlayer
 
 import time
@@ -14,7 +14,7 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 import multiprocessing as mp
 
 target_ips = [
-    '192.168.0.52:9090',
+    'ubuntu.hwanmoo.kr:8080',
     # '192.168.0.2:9090'
 ]
 dev = True
@@ -64,7 +64,7 @@ def reset_var(var):
 def launch_cam(var, target_ip):
     if target_ip == 'ubuntu.hwanmoo.kr:8080':
         var['cam_id'] = 1
-        # var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+        var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
 
     return var
 
@@ -115,11 +115,11 @@ while True:
                 else:
                     if _v['intro'] == False:
                         a_thread = Thread(target = playFile, args = (target_ip,'test_intro', ))
-                        a_thread.start()
+                        # a_thread.start()
 
                         print("Playing intro file, sleep for ", 27, "Seconds")
                 
-                        a_thread.join()
+                        # a_thread.join()
 
                         _v['intro'] = True
 
@@ -127,7 +127,7 @@ while True:
                         hand_detection = detect_hand(cam)
                         print("#3", hand_detection)
 
-                        if detection_result == 1:
+                        if hand_detection == 1:
                             time.sleep(0.5)
                             a_thread = Thread(target = playFile, args = (target_ip,'test_gamestart', ))
                             a_thread.start()

@@ -17,10 +17,6 @@ from controllers.ageGenderController import *
 
 from multiprocessing import Process, Queue
 
-sys.path.insert(0, './bin/tf_openpose')
-from tf_pose.estimator import TfPoseEstimator
-from tf_pose.networks import get_graph_path, model_wh
-
 # from age_gender.age_gender_main import *
 
 from utils import *
@@ -199,9 +195,10 @@ def detect_hand(cam):
             if left > 500 and right < 1000 and top > 450 and bottom < 720:
                 ready_hands_cnt += 1
 
-        if ready_hands_cnt == 2:
+        if ready_hands_cnt == 1:
             ready_cnt += 1
         
+        print(ready_hands_cnt, ready_cnt)
         if ready_cnt > 10:
             return True
         # Calculate Frames per second (FPS)

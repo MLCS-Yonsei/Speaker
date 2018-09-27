@@ -90,8 +90,11 @@ class audioPlayer():
                 speaker = 'Jiwoong'
             elif gender == 'F':
                 speaker = 'Ari'
-
-        method(data['data'], s_type, speaker, target)
+        
+        if speaker:
+            method(data['data'], s_type, speaker, target)
+        else:
+            print("ERROR : audioPlayer.py : play", data['data'], s_type, target)
 
     def overtake(self, data, s_type, speaker='', target=''):
         status = data['status']
