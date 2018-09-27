@@ -14,8 +14,8 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 import multiprocessing as mp
 
 target_ips = [
-    'ubuntu.hwanmoo.kr:8080',
-    # '192.168.0.2:9090'
+    # 'ubuntu.hwanmoo.kr:8080',
+    '192.168.0.2:9090'
 ]
 dev = True
 audio_overlap = True
@@ -64,7 +64,7 @@ def reset_var(var):
 def launch_cam(var, target_ip):
     if target_ip == 'ubuntu.hwanmoo.kr:8080':
         var['cam_id'] = 1
-        var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+        # var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
 
     return var
 

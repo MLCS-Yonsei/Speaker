@@ -83,6 +83,7 @@ class audioPlayer():
     def play(self, data, s_type, gender, target=''):
         method = getattr(self, data['flag'], lambda: "nothing")
         # print(gender)
+        speaker = None
         if s_type == 'HFNV':
             speaker = 'Ari_half'
         else:
@@ -91,7 +92,7 @@ class audioPlayer():
             elif gender == 'F':
                 speaker = 'Ari'
         
-        if speaker:
+        if speaker is not None:
             method(data['data'], s_type, speaker, target)
         else:
             print("ERROR : audioPlayer.py : play", data['data'], s_type, target)
