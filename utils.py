@@ -38,7 +38,7 @@ def send_crest_requset(url, flag, option):
 
     r = requests.get(url, timeout=1)
 
-    data = json.loads(r.text.replace("'", '"'))
+    data = json.loads(r.text)
     # print("CREST",data)
 
     return data

@@ -7,52 +7,56 @@ import multiprocessing
 from threading import Thread
 
 def gender_estimate(face_files, img, tgtdir):
+    result = False
     class_type = 'gender'
 
-    config = tf.ConfigProto(allow_soft_placement=True,device_count={'CPU': 1})
+    config = tf.ConfigProto(allow_soft_placement=True, device_count={'CPU': 1})
     # config.gpu_options.allow_growth = True
-    with tf.Session(config=config) as sess:
-        GENDER_LIST =['M','F']
-        AGE_LIST = ['(0, 3)','(4, 7)','(8, 13)','(14, 20)','(21, 33)','(34, 45)','(46, 59)','(60, 100)']
+    detection_graph = tf.Graph()
+    with detection_graph.as_default():
+        with tf.Session(config=config) as sess:
+            GENDER_LIST =['M','F']
+            AGE_LIST = ['(0, 3)','(4, 7)','(8, 13)','(14, 20)','(21, 33)','(34, 45)','(46, 59)','(60, 100)']
 
-        label_list = AGE_LIST if class_type == 'age' else GENDER_LIST
-        nlabels = len(label_list)
+            label_list = AGE_LIST if class_type == 'age' else GENDER_LIST
+            nlabels = len(label_list)
 
-        model_fn = select_model('default')
+            model_fn = select_model('default')
 
-        with tf.device('/cpu:1'):
-            
-            images = tf.placeholder(tf.float32, [None, RESIZE_FINAL, RESIZE_FINAL, 3])
-            logits = model_fn(nlabels, images, 1, False)
-            init = tf.global_variables_initializer()
-            
-            requested_step = None # FLAGS.requested_step if FLAGS.requested_step else None
-        
-            if class_type == 'gender':
-                checkpoint_path = '%s' % ('./bin/age_gender/2_GEN_fold/gen_test_fold_is_WKFD/run-22588')
-            else:
-                checkpoint_path = '%s' % ('./bin/age_gender/1_AGE_fold/age_test_fold_is_WKFD/run-12870')
-
-            model_checkpoint_path, global_step = get_checkpoint(checkpoint_path, requested_step, 'checkpoint')
-            
-            
-            saver = tf.train.Saver()
-            saver.restore(sess, model_checkpoint_path)
-
-            softmax_output = tf.nn.softmax(logits)
-
-            coder = ImageCoder()
-
-            files = []
-            files += face_files
-
-            if (len(files)>0):
-                best_choices = age_gender_main(sess, img, label_list, softmax_output, coder, images, [files[0]], tgtdir)
+            with tf.device('/cpu:1'):
                 
-                return parse_estimation(best_choices)
-            else:
-                return False
+                images = tf.placeholder(tf.float32, [None, RESIZE_FINAL, RESIZE_FINAL, 3])
+                logits = model_fn(nlabels, images, 1, False)
+                init = tf.global_variables_initializer()
+                
+                requested_step = None # FLAGS.requested_step if FLAGS.requested_step else None
+            
+                if class_type == 'gender':
+                    checkpoint_path = '%s' % ('./bin/age_gender/2_GEN_fold/gen_test_fold_is_WKFD/run-22588')
+                else:
+                    checkpoint_path = '%s' % ('./bin/age_gender/1_AGE_fold/age_test_fold_is_WKFD/run-12870')
 
+                model_checkpoint_path, global_step = get_checkpoint(checkpoint_path, requested_step, 'checkpoint')
+                
+                
+                saver = tf.train.Saver()
+                saver.restore(sess, model_checkpoint_path)
+
+                softmax_output = tf.nn.softmax(logits)
+
+                coder = ImageCoder()
+
+                files = []
+                files += face_files
+
+                if (len(files)>0):
+                    best_choices = age_gender_main(sess, img, label_list, softmax_output, coder, images, [files[0]], tgtdir)
+                    
+                    result = True
+
+
+    if result is True:
+        return parse_estimation(best_choices)
 def age_estimate(fq,aq):
     class_type = 'age'
 

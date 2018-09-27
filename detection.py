@@ -28,14 +28,17 @@ import datetime
 
 def detect_gender(image):
     face_detect = face_detection_model('dlib', './bin/age_gender/Model/shape_predictor_68_face_landmarks.dat')
-    faces, face_files, rectangles, tgtdir = face_detect.run(image)
+    try:
+        faces, face_files, rectangles, tgtdir = face_detect.run(image)
 
-    return gender_estimate(face_files, image, tgtdir)
+        return gender_estimate(face_files, image, tgtdir)
+    except:
+        pass
 
 def detect_human(cam):
     CWD_PATH = os.getcwd()
     CWD_PATH = os.path.abspath(os.path.join(CWD_PATH, os.pardir))
-    CWD_PATH = os.path.join(CWD_PATH, '3_BRobot')
+    CWD_PATH = os.path.join(CWD_PATH, 'Speaker', 'bin')
 
     # Path to frozen detection graph. This is the actual model that is used for the object detection.
     MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17'
@@ -73,8 +76,10 @@ def detect_human(cam):
                 # Detection
                 image_process, person_box = detect_objects(frame, sess, detection_graph, category_index, mot_tracker)
                 
-                if person_box.any() is not False:
+                if person_box is not False:
                     cnt += 1
+                else:
+                    cnt = 0 
 
                 curTime = time.time()
                 sec = curTime - prevTime
@@ -88,7 +93,8 @@ def detect_human(cam):
                 cam.show(frame)
 
                 if cnt > 10:
-                    return crop_img(frame, person_box)
+                    break
+                    # return crop_img(frame, person_box)
 
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
@@ -97,7 +103,7 @@ def detect_human(cam):
                 # plt.imshow(image_process)
                 # plt.show()
 
-            return False
+    return crop_img(frame, person_box)
 
 def detect_objects(image_np, sess, detection_graph, category_index, mot_tracker):
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
@@ -123,6 +129,7 @@ def detect_objects(image_np, sess, detection_graph, category_index, mot_tracker)
     person_ids = [i for i, e in enumerate(classes[0]) if e == 1]
 
     if len(person_ids) > 0:
+        
         selected_person_id = person_ids[0]
         
         person_box = boxes[0][selected_person_id]
@@ -191,11 +198,13 @@ def detect_hand(cam):
         for i in range(num_hands_detect):
             (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
                                           boxes[i][0] * im_height, boxes[i][2] * im_height)
-
-            if left > 500 and right < 1000 and top > 450 and bottom < 720:
+            print(left, right, top, bottom)
+            if left > 155 and right < 540 and top > 300 and bottom < 490:
                 ready_hands_cnt += 1
 
-        if ready_hands_cnt == 1:
+            print(ready_hands_cnt)
+
+        if ready_hands_cnt >= 1:
             ready_cnt += 1
         
         print(ready_hands_cnt, ready_cnt)

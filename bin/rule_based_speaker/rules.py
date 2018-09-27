@@ -13,11 +13,11 @@ def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
     lap_length = gamedata["eventInformation"]["mTrackLength"] # 랩 길이
     lap_completed = gamedata["participants"]["mParticipantInfo"][sim_index]["mLapsCompleted"]
     lap_distance = gamedata["participants"]["mParticipantInfo"][sim_index]["mCurrentLapDistance"] + lap_length * lap_completed
-
+    print(lap_distance)
     if t is None:
         t = datetime.datetime.now()
 
-    if lap_distance > 0:
+    if lap_distance > 10:
         if int(d) == int(lap_distance):
             cur_t = datetime.datetime.now()
 

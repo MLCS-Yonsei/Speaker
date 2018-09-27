@@ -20,14 +20,14 @@ target_ips = [
 dev = True
 audio_overlap = True
 enable_broadcasting = False
-oposite_gender_speaker = False
+oposite_gender_speaker = True
 enable_half_voice = False
 car_position_reset_time = 5
 
 def init_var():
     return {
         'person_attr': {
-            'gender': 'F'
+            'gender': 'M'
         },
         'intro': False,
         'playing': False,
@@ -62,9 +62,9 @@ def reset_var(var):
     return var
 
 def launch_cam(var, target_ip):
-    if target_ip == 'ubuntu.hwanmoo.kr:8080':
-        var['cam_id'] = 1
-        # var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+    if target_ip == '192.168.0.2:9090':
+        var['cam_id'] = 0
+        var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
 
     return var
 
@@ -97,14 +97,15 @@ while True:
             파악이 끝나면 기본 안내멘트 재생.
             재생 후 양손이 디텍트되면 게임 스타트 매크로 시작. + 스타트 멘트 재생
             '''
+            print(_v)
             if 'cam' in _v:
                 cam = _v['cam']
-                # print(_v['person_attr'])
+                print(_v['person_attr'])
                 if _v['person_attr']['gender'] == None:
                     while True:
                         human_box = detect_human(cam)
                         gender = detect_gender(human_box)
-
+                        print("13")
                         if gender is not False:
                             break
 
@@ -115,11 +116,9 @@ while True:
                 else:
                     if _v['intro'] == False:
                         a_thread = Thread(target = playFile, args = (target_ip,'test_intro', ))
-                        # a_thread.start()
-
                         print("Playing intro file, sleep for ", 27, "Seconds")
-                
-                        # a_thread.join()
+                        a_thread.start()
+                        a_thread.join()
 
                         _v['intro'] = True
 
