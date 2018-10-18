@@ -24,6 +24,7 @@ from bin.keys import Keys
 from time import time, sleep
 
 from math import log, ceil, floor
+from polly import play_with_polly
 
 dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -129,6 +130,17 @@ def car_position_reset():
     keyPress(keys, "RETURN")
   
     return jsonify({}), 200
+
+@app.route('/polly', methods=['GET'])
+def polly():
+    text = request.args.get('text')
+    print("RCVD Text:",text)
+    try:
+        play_with_polly(text)
+        
+        return jsonify({'status':True}), 200
+    except Exception as ex:
+        return jsonify({'status':False,'msg':str(ex)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, port=3000)
