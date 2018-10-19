@@ -34,7 +34,7 @@ class audioPlayer():
             self.network_flag = False
         else:
             self.network_flag = True
-
+        self.fast = 1.1
         self.audio_path = './bin/audio/'
         # self.method()
         with open('./bin/audio/index.csv', 'r') as csvfile:
@@ -68,7 +68,7 @@ class audioPlayer():
 
             stream = p.open(format=audio_format,
                             channels=seg.channels,
-                            rate=seg.frame_rate,
+                            rate=int(seg.frame_rate * self.fast),
                             output=True)
 
             # break audio into half-second chunks (to allows keyboard interrupts)

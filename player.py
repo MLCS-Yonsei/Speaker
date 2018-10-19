@@ -115,6 +115,27 @@ def start():
   
     return jsonify({}), 200
 
+@app.route('/finish', methods=['GET'])
+def finish():
+    # Move to bottom of the menu
+    # shell = win32com.client.Dispatch("WScript.Shell")
+    # shell.SendKeys('%')
+    
+    # PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
+    # PyCWnd1.SetForegroundWindow()
+    # PyCWnd1.SetFocus()
+    
+    keys = Keys()
+    keyPress(keys, "R")
+    keyPress(keys, "r")
+
+    for i in range(1,6):
+        keyPress(keys, "UP")
+
+    keyPress(keys, "RETURN")
+  
+    return jsonify({}), 200
+
 @app.route('/car_position_reset', methods=['GET'])
 def car_position_reset():
     # Move to bottom of the menu
