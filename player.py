@@ -60,6 +60,8 @@ def play():
         audio_format = pyaudio.paInt16
     elif speaker == 'Ari':
         audio_format = pyaudio.paInt32
+    elif speaker == 'Furby':
+        audio_format = pyaudio.paInt32
     else:
         audio_format = pyaudio.paInt32
 
