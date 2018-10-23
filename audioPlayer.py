@@ -52,6 +52,8 @@ class audioPlayer():
             audio_format = pyaudio.paInt16
         elif speaker == 'Ari':
             audio_format = pyaudio.paInt32
+        elif speaker == 'Furby':
+            audio_format = pyaudio.paInt32
         else:
             audio_format = pyaudio.paInt16
 
@@ -86,6 +88,8 @@ class audioPlayer():
         speaker = None
         if s_type == 'HFNV':
             speaker = 'Ari_half'
+        elif s_type == 'BR':
+            speaker = 'Furby'
         else:
             if gender == 'M':
                 speaker = 'Jiwoong'
