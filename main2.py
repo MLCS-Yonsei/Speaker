@@ -119,7 +119,10 @@ for target_ip in target_ips:
 
 while True:
     for target_ip in target_ips:
-        stage, gamedata = get_crest_data(target_ip)
+        try:
+            stage, gamedata = get_crest_data(target_ip)
+        except:
+            continue
         # print("Stage:", stage)
         # stage = 1
         _v = variables[target_ip]
@@ -131,7 +134,7 @@ while True:
             파악이 끝나면 기본 안내멘트 재생.
             재생 후 양손이 디텍트되면 게임 스타트 매크로 시작. + 스타트 멘트 재생
             '''
-            print(_v)
+            # print(_v)
             if 'cam' in _v:
                 cam = _v['cam']
                 print(_v['person_attr'])
@@ -201,7 +204,6 @@ while True:
             overtake_result, _v['overtake_r0_t0'] = overtake(gamedata, target_ip, _v['overtake_r0_t0'])
             crash_result, _v['prev_crash'] = crash(gamedata, target_ip, _v['prev_crash'], 1)
             chase_result, _v['recent_fcar_distances'], _v['recent_scar_distances'] = chase(gamedata, target_ip, _v['recent_fcar_distances'], _v['recent_scar_distances'], 0.01)
-
             # 중계를 할지 내비를 할지 선택
             if enable_broadcasting is True:
                 s_type = random.choice(['NV', 'BR'])
@@ -298,8 +300,10 @@ while True:
                         _v['outro'] = True
 
             _v = reset_var(_v)
+            time.sleep(5)
             url = 'http://' + target_ip.split(':')[0] + ':3000/finish'
             r = requests.get(url)
+            time.sleep(10)
 
         elif stage == 5:
             '''
@@ -330,8 +334,10 @@ while True:
                         _v['outro'] = True
 
             _v = reset_var(_v)
+            time.sleep(5)
             url = 'http://' + target_ip.split(':')[0] + ':3000/finish'
             r = requests.get(url)
+            time.sleep(10)
 
         else:
             pass

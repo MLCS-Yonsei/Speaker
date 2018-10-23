@@ -13,7 +13,6 @@ def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
     lap_length = gamedata["eventInformation"]["mTrackLength"] # 랩 길이
     lap_completed = gamedata["participants"]["mParticipantInfo"][sim_index]["mLapsCompleted"]
     lap_distance = gamedata["participants"]["mParticipantInfo"][sim_index]["mCurrentLapDistance"] + lap_length * lap_completed
-    print(lap_distance)
     if t is None:
         t = datetime.datetime.now()
 
@@ -330,8 +329,10 @@ def chase(data, target_ip, recent_fcar_distances, recent_scar_distances, msg_rat
             recent_fcar_distances = []
             recent_scar_distances = []
         else:
-
-            rank, ecar_distance, fcar_distance, scar_distance, ranks = get_distance(gamedata, target_ip)
+            try:
+                rank, ecar_distance, fcar_distance, scar_distance, ranks = get_distance(gamedata, target_ip)
+            except:
+                return None, recent_fcar_distances, recent_scar_distances
             '''
             fcar_distance랑 ecar_distance랑 차이 해서 특정만큼 벌어지면 그때
             기다려줘요 멘트 ㄱ
