@@ -139,15 +139,7 @@ def finish():
     return jsonify({}), 200
 
 @app.route('/host_ready', methods=['GET'])
-def host_ready():
-    # Move to bottom of the menu
-    # shell = win32com.client.Dispatch("WScript.Shell")
-    # shell.SendKeys('%')
-    
-    # PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
-    # PyCWnd1.SetForegroundWindow()
-    # PyCWnd1.SetFocus()
-    
+def host_ready(): 
     keys = Keys()
     keyPress(keys, "J")
     keyPress(keys, "j")
@@ -162,23 +154,36 @@ def host_ready():
 
 @app.route('/host_start', methods=['GET'])
 def host_start():
-    # Move to bottom of the menu
-    # shell = win32com.client.Dispatch("WScript.Shell")
-    # shell.SendKeys('%')
-    
-    # PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
-    # PyCWnd1.SetForegroundWindow()
-    # PyCWnd1.SetFocus()
-    
-    keys = Keys()
-    keyPress(keys, "J")
-    keyPress(keys, "j")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((HOST, PORT))
+    sock.listen()
+    conn, addr = sock.accept()
+    while True:
+        data = conn.recv(1024)
+        if data == b'\x00':
+            keys = Keys()
+            keyPress(keys, "J")
+            keyPress(keys, "j")
 
-    for i in range(1,6):
-        keyPress(keys, "UP")
-        keyPress(keys, "LEFT")
+            for i in range(1,6):
+                keyPress(keys, "UP")
+                keyPress(keys, "LEFT")
 
-    keyPress(keys, "RETURN")
+            keyPress(keys, "RETURN")
+            break
+  
+    return jsonify({}), 200
+
+@app.route('/guest_ready', methods=['GET'])
+def guest_ready(): 
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    while 1:
+        try:
+            sock.connect((HOST, PORT))
+            break
+        except:
+            continue
+    sock.sendall(bytes(_v['playing']))
   
     return jsonify({}), 200
 

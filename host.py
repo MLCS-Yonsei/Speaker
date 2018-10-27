@@ -175,18 +175,10 @@ while True:
 
                             url = 'http://' + target_ip.split(':')[0] + ':3000/host_ready'
                             r = requests.get(url)
-                            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                            sock.bind((HOST, PORT))
-                            sock.listen()
-                            conn, addr = sock.accept()
-                            while True:
-                                data = conn.recv(1024)
-                                if data == b'\x00':
-                                    url = 'http://' + target_ip.split(':')[0] + ':3000/host_start'
-                                    r = requests.get(url)
-                                    break
-
-
+                            
+                            url = 'http://' + target_ip.split(':')[0] + ':3000/host_start'
+                            r = requests.get(url)
+                                    
                             a_thread.join()
 
         elif stage == 2:

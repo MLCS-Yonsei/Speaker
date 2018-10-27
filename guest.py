@@ -176,14 +176,8 @@ while True:
                             url = 'http://' + target_ip.split(':')[0] + ':3000/start'
                             r = requests.get(url)
 
-                            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                            while 1:
-                                try:
-                                    sock.connect((HOST, PORT))
-                                    break
-                                except:
-                                    continue
-                            sock.sendall(bytes(_v['playing']))
+                            url = 'http://' + target_ip.split(':')[0] + ':3000/guest_ready'
+                            r = requests.get(url)                            
 
                             a_thread.join()
 
