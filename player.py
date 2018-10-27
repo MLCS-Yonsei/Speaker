@@ -183,7 +183,7 @@ def guest_ready():
             break
         except:
             continue
-    sock.sendall(bytes(_v['playing']))
+    sock.sendall(bytes(1))
   
     return jsonify({}), 200
 

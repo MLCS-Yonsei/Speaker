@@ -14,7 +14,7 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 import multiprocessing as mp
 import pyudev
 import socket
-HOST = '192.168.0.54'  
+HOST = '192.168.0.2'  
 PORT = 65432
 
 target_ips = [
