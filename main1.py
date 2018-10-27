@@ -21,7 +21,7 @@ target_ips = [
 dev = True
 audio_overlap = True
 enable_broadcasting = False
-oposite_gender_speaker = True
+oposite_gender_speaker = False
 enable_half_voice = False
 car_position_reset_time = 5
 
@@ -137,7 +137,7 @@ while True:
             # print(_v)
             if 'cam' in _v:
                 cam = _v['cam']
-                print(_v['person_attr'])
+                print(_v)
                 if _v['person_attr']['gender'] == None:
                     while True:
                         human_box = detect_human(cam)

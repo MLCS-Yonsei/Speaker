@@ -107,7 +107,7 @@ def detect_human(cam):
 
 def detect_objects(image_np, sess, detection_graph, category_index, mot_tracker):
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-    image_cropped = crop_img(image_np, np.array([0.25,0,1,0.83]))
+    image_cropped = crop_img(image_np, np.array([0.35,0.1,1,0.75]))
     # print(image_cropped.shape)
     # plt.imshow(image_cropped)
     # plt.show()
@@ -205,11 +205,11 @@ def detect_hand(cam):
         for i in range(num_hands_detect):
             (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
                                           boxes[i][0] * im_height, boxes[i][2] * im_height)
-            print(left, right, top, bottom)
+            # print(left, right, top, bottom)
             if left > 155 and right < 540 and top > 300 and bottom < 490:
                 ready_hands_cnt += 1
 
-            print(ready_hands_cnt)
+            # print(ready_hands_cnt)
 
         if ready_hands_cnt >= 1:
             ready_cnt += 1

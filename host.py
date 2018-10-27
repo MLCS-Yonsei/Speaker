@@ -13,10 +13,13 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 
 import multiprocessing as mp
 import pyudev
+import socket
+HOST = '192.168.0.54'  
+PORT = 65432
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
-    '192.168.0.52:9090'
+    '192.168.0.2:9090'
 ]
 dev = True
 audio_overlap = True
@@ -170,8 +173,19 @@ while True:
 
                             _v['playing'] = True
 
-                            url = 'http://' + target_ip.split(':')[0] + ':3000/start'
+                            url = 'http://' + target_ip.split(':')[0] + ':3000/host_ready'
                             r = requests.get(url)
+                            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                            sock.bind((HOST, PORT))
+                            sock.listen()
+                            conn, addr = sock.accept()
+                            while True:
+                                data = conn.recv(1024)
+                                if data == b'\x00':
+                                    url = 'http://' + target_ip.split(':')[0] + ':3000/host_start'
+                                    r = requests.get(url)
+                                    break
+
 
                             a_thread.join()
 
@@ -204,6 +218,7 @@ while True:
             overtake_result, _v['overtake_r0_t0'] = overtake(gamedata, target_ip, _v['overtake_r0_t0'])
             crash_result, _v['prev_crash'] = crash(gamedata, target_ip, _v['prev_crash'], 1)
             chase_result, _v['recent_fcar_distances'], _v['recent_scar_distances'] = chase(gamedata, target_ip, _v['recent_fcar_distances'], _v['recent_scar_distances'], 0.01)
+
             # 중계를 할지 내비를 할지 선택
             if enable_broadcasting is True:
                 s_type = random.choice(['NV', 'BR'])
