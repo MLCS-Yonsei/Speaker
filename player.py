@@ -26,6 +26,10 @@ from time import time, sleep
 from math import log, ceil, floor
 from polly import play_with_polly
 
+import socket
+HOST = '192.168.0.2'  
+PORT = 65432
+
 dir = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
