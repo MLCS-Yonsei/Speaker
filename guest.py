@@ -13,9 +13,6 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 
 import multiprocessing as mp
 import pyudev
-import socket
-HOST = '192.168.0.2' 
-PORT = 65432
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
@@ -140,7 +137,7 @@ while True:
             # print(_v)
             if 'cam' in _v:
                 cam = _v['cam']
-                print(_v)
+                # print(_v)
                 if _v['person_attr']['gender'] == None:
                     while True:
                         human_box = detect_human(cam)
