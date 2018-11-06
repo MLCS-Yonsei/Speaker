@@ -34,7 +34,7 @@ class audioPlayer():
             self.network_flag = False
         else:
             self.network_flag = True
-        self.fast = 1.1
+        self.fast = 1
         self.audio_path = './bin/audio/'
         # self.method()
         with open('./bin/audio/index.csv', 'r') as csvfile:
@@ -243,5 +243,12 @@ class audioPlayer():
             audio_file = random.choice(audio_files)
             self.playFile(audio_file['file_name'])
 
-            
+    def speed_check(self, data, s_type, speaker='', target=''):
+        status = data['status']
+
+        if status:
+            audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'SL' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
+        if len(audio_files) > 0:
+            audio_file = random.choice(audio_files)
+            self.playFile(audio_file['file_name'])
 

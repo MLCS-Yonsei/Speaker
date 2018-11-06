@@ -212,6 +212,7 @@ while True:
             overtake_result, _v['overtake_r0_t0'] = overtake(gamedata, target_ip, _v['overtake_r0_t0'])
             crash_result, _v['prev_crash'] = crash(gamedata, target_ip, _v['prev_crash'], 1)
             chase_result, _v['recent_fcar_distances'], _v['recent_scar_distances'] = chase(gamedata, target_ip, _v['recent_fcar_distances'], _v['recent_scar_distances'], 0.01)
+            
 
             # 중계를 할지 내비를 할지 선택
             if enable_broadcasting is True:
