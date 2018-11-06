@@ -2,14 +2,14 @@
 from utils import *
 from detection import Cam, detect_hand, detect_human, detect_gender
 from audioPlayer import audioPlayer
-
+import numpy as np
 import time
 import random
 from threading import Thread
 
 import requests 
 
-from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing
+from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing, speed_check
 
 import multiprocessing as mp
 import pyudev

@@ -6,10 +6,10 @@ from audioPlayer import audioPlayer
 import time
 import random
 from threading import Thread
-
+import numpy as np
 import requests 
 
-from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing
+from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing, speed_check
 
 import multiprocessing as mp
 import pyudev

@@ -427,7 +427,7 @@ def speed_check(data, target_ip, fp_dist, fp_sp):
     current_time = data['current_time']
     status = False
     speed = gamedata["carState"]["mSpeed"]
-    distance = gamedata["participants"][0]["currentLapDistance"]
+    distance = gamedata["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"]
 
     result = {}
     result['current_time'] = current_time      
