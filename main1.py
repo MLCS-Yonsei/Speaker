@@ -25,6 +25,11 @@ oposite_gender_speaker = False
 enable_half_voice = False
 car_position_reset_time = 5
 
+speed_label = np.load('output.npz')['data']
+fp_dist = speed_label[:,0].astype(float)
+fp_sp = speed_label[:,1].astype(float)
+# fp_steer = speed_label[:,2].astype(float)
+
 def init_var():
     return {
         'person_attr': {
@@ -204,6 +209,7 @@ while True:
             overtake_result, _v['overtake_r0_t0'] = overtake(gamedata, target_ip, _v['overtake_r0_t0'])
             crash_result, _v['prev_crash'] = crash(gamedata, target_ip, _v['prev_crash'], 1)
             chase_result, _v['recent_fcar_distances'], _v['recent_scar_distances'] = chase(gamedata, target_ip, _v['recent_fcar_distances'], _v['recent_scar_distances'], 0.01)
+            speed_check_result = speed_check(gamedata, target_ip, fp_dist, fp_sp)
 
             # 중계를 할지 내비를 할지 선택
             if enable_broadcasting is True:
@@ -247,6 +253,8 @@ while True:
                 rb_data = overtake_result
             elif lap_distance_result is not False and lap_distance_result['flag'] is not 'random':
                 rb_data = lap_distance_result
+            elif speed_check_result is not False:
+                rb_data = speed_check_result
             elif crash_result is not False:
                 rb_data = crash_result
             elif chase_result is not False:

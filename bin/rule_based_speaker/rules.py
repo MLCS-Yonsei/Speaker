@@ -5,6 +5,7 @@ from datetime import datetime
 import requests 
 from threading import Thread
 from utils import *
+import numpy as np
 
 def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
     gamedata = data['gamedata']
@@ -420,3 +421,56 @@ def chase(data, target_ip, recent_fcar_distances, recent_scar_distances, msg_rat
                     recent_scar_distances = []
 
     return result, recent_fcar_distances, recent_scar_distances
+
+def speed_check(data, target_ip, fp_dist, fp_sp):
+    gamedata = data['gamedata']
+    current_time = data['current_time']
+    status = False
+    speed = gamedata["carState"]["mSpeed"]
+    distance = gamedata["participants"][0]["currentLapDistance"]
+
+    result = {}
+    result['current_time'] = current_time      
+    result['target_ip'] = target_ip
+    result['flag'] = 'speed_check'
+
+    if  800 < distance < 820 and speed > np.interp(distance, fp_dist, fp_sp):
+        status = True
+        result['data'] = {
+            'status' : status
+        }
+
+    elif  965 < distance < 985 and speed > np.interp(distance, fp_dist, fp_sp):
+        status = True
+        result['data'] = {
+            'status' : status
+        }
+
+    elif  1370 < distance < 1390 and speed > np.interp(distance, fp_dist, fp_sp):
+        status = True
+        result['data'] = {
+            'status' : status
+        }
+
+    elif  1485 < distance < 1505 and speed > np.interp(distance, fp_dist, fp_sp):
+        status = True
+        result['data'] = {
+            'status' : status
+        }
+
+    elif  2760 < distance < 2780 and speed > np.interp(distance, fp_dist, fp_sp):
+        status = True
+        result['data'] = {
+            'status' : status
+        }
+
+    elif  2850 < distance < 2870 and speed > np.interp(distance, fp_dist, fp_sp):
+        status = True
+        result['data'] = {
+            'status' : status
+        }
+
+    else:
+        result = False
+
+    return result
