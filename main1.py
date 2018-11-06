@@ -21,7 +21,7 @@ target_ips = [
 dev = True
 audio_overlap = True
 enable_broadcasting = False
-oposite_gender_speaker = False
+oposite_gender_speaker = True
 enable_half_voice = False
 car_position_reset_time = 5
 
@@ -137,7 +137,7 @@ while True:
             # print(_v)
             if 'cam' in _v:
                 cam = _v['cam']
-                print(_v)
+                # print(_v)
                 if _v['person_attr']['gender'] == None:
                     while True:
                         human_box = detect_human(cam)
@@ -204,7 +204,6 @@ while True:
             overtake_result, _v['overtake_r0_t0'] = overtake(gamedata, target_ip, _v['overtake_r0_t0'])
             crash_result, _v['prev_crash'] = crash(gamedata, target_ip, _v['prev_crash'], 1)
             chase_result, _v['recent_fcar_distances'], _v['recent_scar_distances'] = chase(gamedata, target_ip, _v['recent_fcar_distances'], _v['recent_scar_distances'], 0.01)
-
             # 중계를 할지 내비를 할지 선택
             if enable_broadcasting is True:
                 s_type = random.choice(['NV', 'BR'])

@@ -21,7 +21,7 @@ target_ips = [
 dev = True
 audio_overlap = True
 enable_broadcasting = False
-oposite_gender_speaker = False
+oposite_gender_speaker = True
 enable_half_voice = False
 car_position_reset_time = 5
 
