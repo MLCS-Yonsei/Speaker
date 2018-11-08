@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
-'''
+
 # Create a VideoCapture object
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 # Check if camera opened successfully
 if (cap.isOpened() == False): 
   print("Unable to read camera feed")
@@ -52,4 +52,4 @@ for device in context.list_devices(subsystem='usb'):
     elif device.get('DEVPATH') == '/devices/pci0000:00/0000:00:14.0/usb1/1-8/1-8.4':
         # var['cam_id'] = 1   #192.168.0.52
         ip52 = device.get('DEVNUM')
-
+'''

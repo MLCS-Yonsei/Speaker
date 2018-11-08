@@ -55,7 +55,7 @@ class audioPlayer():
         elif speaker == 'Furby':
             audio_format = pyaudio.paInt32
         else:
-            audio_format = pyaudio.paInt16
+            audio_format = pyaudio.paInt32
 
         file_path = self.audio_path + str(file_path)
         if self.network_flag:
