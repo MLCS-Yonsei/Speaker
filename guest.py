@@ -13,6 +13,9 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 
 import multiprocessing as mp
 import pyudev
+import socket
+HOST = '192.168.0.54' #Kong PC IP  
+PORT = 65432
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
@@ -148,7 +151,7 @@ while True:
                         human_box = detect_human(cam)
                         gender = detect_gender(human_box)
                         print("13")
-                        if gender is not False:
+                        if gender is not None:
                             break
 
                     # print("G:",gender)
@@ -178,8 +181,19 @@ while True:
                             url = 'http://' + target_ip.split(':')[0] + ':3000/start'
                             r = requests.get(url)
 
-                            url = 'http://' + target_ip.split(':')[0] + ':3000/guest_ready'
-                            r = requests.get(url)                            
+                            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                            while 1:
+                                try:
+                                    sock.connect((HOST, PORT))
+                                    break
+                                except:
+                                    continue
+                            sock.sendall(bytes(1))
+                            sock.close()
+
+                            # url = 'http://' + target_ip.split(':')[0] + ':3000/guest_ready'
+                            # r = requests.get(url)                            
 
                             a_thread.join()
 

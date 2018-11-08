@@ -148,7 +148,7 @@ while True:
                         human_box = detect_human(cam)
                         gender = detect_gender(human_box)
                         print("13")
-                        if gender is not False:
+                        if gender is not None:
                             break
 
                     # print("G:",gender)

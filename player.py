@@ -156,40 +156,40 @@ def host_ready():
   
     return jsonify({}), 200
 
-@app.route('/host_start', methods=['GET'])
-def host_start():
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind((HOST, PORT))
-    sock.listen()
-    conn, addr = sock.accept()
-    while True:
-        data = conn.recv(1024)
-        if data == b'\x00':
-            keys = Keys()
-            keyPress(keys, "J")
-            keyPress(keys, "j")
+# @app.route('/host_start', methods=['GET'])
+# def host_start():
+#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     sock.bind((HOST, PORT))
+#     sock.listen()
+#     conn, addr = sock.accept()
+#     while True:
+#         data = conn.recv(1024)
+#         if data == b'\x00':
+#             keys = Keys()
+#             keyPress(keys, "J")
+#             keyPress(keys, "j")
 
-            for i in range(1,6):
-                keyPress(keys, "UP")
-                keyPress(keys, "LEFT")
+#             for i in range(1,6):
+#                 keyPress(keys, "UP")
+#                 keyPress(keys, "LEFT")
 
-            keyPress(keys, "RETURN")
-            break
+#             keyPress(keys, "RETURN")
+#             break
   
-    return jsonify({}), 200
+#     return jsonify({}), 200
 
-@app.route('/guest_ready', methods=['GET'])
-def guest_ready(): 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    while 1:
-        try:
-            sock.connect((HOST, PORT))
-            break
-        except:
-            continue
-    sock.sendall(bytes(1))
+# @app.route('/guest_ready', methods=['GET'])
+# def guest_ready(): 
+#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     while 1:
+#         try:
+#             sock.connect((HOST, PORT))
+#             break
+#         except:
+#             continue
+#     sock.sendall(bytes(1))
   
-    return jsonify({}), 200
+#     return jsonify({}), 200
 
 @app.route('/car_position_reset', methods=['GET'])
 def car_position_reset():
