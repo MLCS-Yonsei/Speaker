@@ -1668,3 +1668,9 @@ slow01.wav,Ari,NV,,MI,SL
 slow02.wav,Ari,NV,,MI,SL
 slow01M.wav,Jiwoong,NV,,MI,SL
 slow02M.wav,Jiwoong,NV,,MI,SL
+win_1.wav,Furby,BR,P1,RS,WIN
+win_2.wav,Furby,BR,P2,RS,WIN
+lose_1_01.wav,Furby,BR,P1,RS,LOSE
+lose_1_02.wav,Furby,BR,P1,RS,LOSE
+lose_2_01.wav,Furby,BR,P2,RS,LOSE
+lose_2_02.wav,Furby,BR,P2,RS,LOSE
