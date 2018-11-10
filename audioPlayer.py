@@ -264,11 +264,11 @@ class audioPlayer():
             self.playFile(audio_file['file_name'])
 
     def before_start(self, data, s_type, speaker='', target=''):
-    status = data
+        status = data
 
-    if status:
-        audio_files = list(filter(lambda af: af['category1'] == 'RS' and af['category2'] == 'BS' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
-    
-    if len(audio_files) > 0:
-        audio_file = random.choice(audio_files)
-        self.playFile(audio_file['file_name'])
+        if status:
+            audio_files = list(filter(lambda af: af['category1'] == 'RS' and af['category2'] == 'BS' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
+        
+        if len(audio_files) > 0:
+            audio_file = random.choice(audio_files)
+            self.playFile(audio_file['file_name'])
