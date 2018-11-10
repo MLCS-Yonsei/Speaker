@@ -38,6 +38,7 @@ def init_var():
         'intro': False,
         'playing': False,
         'outro': False,
+        'finish': False,
         'lap_distance_t': 0,
         'overtake_r0_t0': None,
         'prev_crash': None,
@@ -50,6 +51,7 @@ def init_var():
 
 def reset_game_var(var):
     var['outro'] = False
+    var['finish'] = False
     var['lap_distance_t'] = 0
     var['overtake_r0_t0'] = None
     var['prev_crash'] = None
@@ -292,7 +294,9 @@ while True:
             result['data'] = {
             'rank' : rank
             }
-            audio_player.play(result, s_type, speaker_gender, target)
+            if _v['finish'] is False:
+                audio_player.play(result, s_type, speaker_gender, target)
+                _v['finish'] = True
 
             if _v['outro'] is False:
                 if audio_overlap is False:
@@ -336,7 +340,9 @@ while True:
             result['data'] = {
             'rank' : rank
             }
-            audio_player.play(result, s_type, speaker_gender, target)
+            if _v['finish'] is False:
+                audio_player.play(result, s_type, speaker_gender, target)
+                _v['finish'] = True
 
             if _v['outro'] is False:
                 if audio_overlap is False:
