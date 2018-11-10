@@ -188,6 +188,12 @@ while True:
             로딩중 별다른 액션 없음.
             '''
             _v = reset_game_var(_v)
+            audio_player = local_audio_player
+            result = {}
+            result['flag'] = 'before_start'
+            result['data'] = True
+            audio_player.play(result, 'BR', '', '')
+
         elif stage == 3:
             '''
             게임중 Speaker 시작
@@ -236,6 +242,7 @@ while True:
                         speaker_gender = 'M'
             elif s_type == 'BR':
                 audio_player = local_audio_player
+                
                 # 여기에서 플레이어 비교
                 print("BR on")
                 target = 'P1'
