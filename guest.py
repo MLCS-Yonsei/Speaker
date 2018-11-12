@@ -14,12 +14,12 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 import multiprocessing as mp
 import pyudev
 import socket
-HOST = '192.168.0.54' #Kong PC IP  
+HOST = '10.0.0.202' #Kong PC IP  
 PORT = 65432
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
-    '192.168.0.52:9090'
+    '10.0.0.121:9090'
 ]
 dev = True
 audio_overlap = True
@@ -73,10 +73,10 @@ def reset_var(var):
     return var
 
 def launch_cam(var, target_ip):
-    if target_ip == '192.168.0.2:9090':
+    if target_ip == '10.0.0.200:9090':
         var['cam_id'] = 0
         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
-    if target_ip == '192.168.0.52:9090':
+    elif target_ip == '10.0.0.121:9090':
         var['cam_id'] = 1
         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
 
@@ -136,7 +136,7 @@ while True:
         # print("Stage:", stage)
         # stage = 1
         _v = variables[target_ip]
-        # print("#2")
+        print("#2")
         if stage == 1 and _v['playing'] == False:
             '''
             로비에서 대기중인 상황.

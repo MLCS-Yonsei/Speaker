@@ -26,7 +26,7 @@ import socket
 
 target_ips = [
     '10.0.0.200:9090',
-    # '192.168.0.52:9090'
+    '10.0.0.121:9090'
 ]
 dev = True
 audio_overlap = True
@@ -73,10 +73,10 @@ def reset_var(var):
     return var
 
 def launch_cam(var, target_ip):
-    if target_ip == '192.168.0.2:9090':
+    if target_ip == '10.0.0.200:9090':
         var['cam_id'] = 0
         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
-    if target_ip == '192.168.0.52:9090':
+    if target_ip == '10.0.0.121:9090':
         var['cam_id'] = 1
         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
 
@@ -251,9 +251,9 @@ while True:
             elif s_type == 'BR':
                 audio_player = local_audio_player
                 # 여기에서 플레이어 비교
-                if target_ip == '192.168.0.2:9090':
+                if target_ip == '10.0.0.200:9090':
                     target = 'P1'
-                elif target_ip == '192.168.0.52:9090':
+                elif target_ip == '10.0.0.121:9090':
                     target = 'P2'
 
                 speaker_gender = _v['person_attr']['gender']
@@ -292,9 +292,9 @@ while True:
                     client_socket.send(msg.encode())
 
                 if time() - m_time > 8:
-                    if target_ip == '192.168.0.2:9090':
+                    if target_ip == '10.0.0.200:9090':
                         _cs = 0
-                    elif target_ip == '192.168.0.52:9090':
+                    elif target_ip == '10.0.0.121:9090':
                         _cs = 1
 
                     print(_cs, current_side)

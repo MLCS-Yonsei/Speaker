@@ -208,7 +208,7 @@ def detect_hand(cam):
             # print(left, right, top, bottom)
             if left > 155 and right < 540 and top > 300 and bottom < 490:
                 ready_hands_cnt += 1
-
+            
             # print(ready_hands_cnt)
 
         if ready_hands_cnt >= 1:
