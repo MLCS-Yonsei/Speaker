@@ -1,8 +1,17 @@
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
+def crop_img(img,box):
+    y,x,d = img.shape
+    startx = int(x*box[0])
+    starty = int(y*box[1])
+    endx = int(x*box[3])
+    endy = int(y*box[2])
+
+    return img[starty:endy,startx:endx]
 
 # Create a VideoCapture object
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 # Check if camera opened successfully
 if (cap.isOpened() == False): 
   print("Unable to read camera feed")
@@ -18,7 +27,10 @@ while(True):
   ret, frame = cap.read()
  
   if ret == True: 
-     
+    image_cropped = crop_img(frame, np.array([0.32,0.06,0.9,0.65]))
+    # print(image_cropped.shape)
+    plt.imshow(image_cropped)
+    plt.show()
     # Write the frame into the file 'output.avi'
     # Display the resulting frame    
     cv2.imshow('frame',frame)

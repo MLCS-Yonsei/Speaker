@@ -21,6 +21,9 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 import multiprocessing as mp
 import pyudev
 
+from time import time
+import socket
+
 target_ips = [
     '192.168.0.2:9090',
     '192.168.0.52:9090'
@@ -124,6 +127,12 @@ local_audio_player = audioPlayer('192.168.0.23')
 #     variables[target_ip] = launch_cam(variables[target_ip], target_ip)
 #     variables[target_ip] = launch_audio(variables[target_ip], target_ip)
 
+m_time = time()
+current_side = 1
+robot_ip = "192.168.0.23"
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((robot_ip, 8250))
+
 while True:
     for target_ip in target_ips:
         try:
@@ -218,7 +227,6 @@ while True:
             overtake_result, _v['overtake_r0_t0'] = overtake(gamedata, target_ip, _v['overtake_r0_t0'])
             crash_result, _v['prev_crash'] = crash(gamedata, target_ip, _v['prev_crash'], 1)
             chase_result, _v['recent_fcar_distances'], _v['recent_scar_distances'] = chase(gamedata, target_ip, _v['recent_fcar_distances'], _v['recent_scar_distances'], 0.01)
-            
 
             # 중계를 할지 내비를 할지 선택
             if enable_broadcasting is True:
@@ -242,10 +250,12 @@ while True:
                         speaker_gender = 'M'
             elif s_type == 'BR':
                 audio_player = local_audio_player
-                
                 # 여기에서 플레이어 비교
-                print("BR on")
-                target = 'P1'
+                if target_ip == '192.168.0.2:9090':
+                    target = 'P1'
+                elif target_ip == '192.168.0.52:9090':
+                    target = 'P2'
+
                 speaker_gender = _v['person_attr']['gender']
 
                 if oposite_gender_speaker == True:
@@ -271,23 +281,69 @@ while True:
             elif lap_distance_result is not False and lap_distance_result['flag'] is 'random':
                 rb_data = lap_distance_result
 
-            if rb_data is not None and audio_overlap is False:
+            if rb_data is not None:# and audio_overlap is False:
                 # 오디오 중첩 없이 재생
-                audio_player.play(rb_data, s_type, speaker_gender, target)
-            elif rb_data is not None and audio_overlap is True:
-                # 오디오 중첩 재생
-                if _v['audio_thread'] is None:
-                    # print("Playing audio")
-                    _v['audio_thread'] = Thread(target=audio_player.play, args=(rb_data, s_type, speaker_gender, target))
-                    _v['audio_thread'].start()
-                    # print(_v['audio_thread'].isAlive())
+                
+                if time() - m_time > 3:
+                    direction = '11'
+                    speed = '1011'
+                    _m = "".join(['STX',direction,speed,'ETX'])
+                    msg = str(len(_m)).zfill(4) + _m
+                    client_socket.send(msg.encode())
 
-                if not _v['audio_thread'].isAlive():
-                    # print("Still Playing audio")
-                    _v['audio_thread'] = None
+                if time() - m_time > 8:
+                    if target_ip == '192.168.0.2:9090':
+                        _cs = 0
+                    elif target_ip == '192.168.0.52:9090':
+                        _cs = 1
+
+                    print(_cs, current_side)
+                    if _cs != current_side:
+                        if _cs == 0:
+                            direction = '10'
+                        else:
+                            direction = '01'
+
+                        speed = '1011'
+                        _m = "".join(['STX',direction,speed,'ETX'])
+                        msg = str(len(_m)).zfill(4) + _m
+                        client_socket.send(msg.encode())
+
+                        m_time = time()
+                        current_side = _cs
+                    else:
+                        if current_side == 0:
+                            direction = '10'
+                            _cs = 0
+                        else:
+                            direction = '01'
+                            _cs = 1
+
+                        speed = '1011'
+                        _m = "".join(['STX',direction,speed,'ETX'])
+                        msg = str(len(_m)).zfill(4) + _m
+                        print(msg)
+                        client_socket.send(msg.encode())
+
+                        m_time = time()
+                        current_side = _cs
+
+                audio_player.play(rb_data, s_type, speaker_gender, target)
+
+                # time.sleep(1)
+            # elif rb_data is not None and audio_overlap is True:
+            #     # 오디오 중첩 재생
+            #     if _v['audio_thread'] is None:
+            #         # print("Playing audio")
+            #         _v['audio_thread'] = Thread(target=audio_player.play, args=(rb_data, s_type, speaker_gender, target))
+            #         _v['audio_thread'].start()
+            #         # print(_v['audio_thread'].isAlive())
+
+            #     if not _v['audio_thread'].isAlive():
+            #         # print("Still Playing audio")
+            #         _v['audio_thread'] = None
 
             # print(lap_distance_result, overtake_result, crash_result, chase_result, target_ip)
-
         elif stage == 4:
             if enable_broadcasting is False:
                 '''
