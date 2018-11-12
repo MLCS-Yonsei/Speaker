@@ -16,7 +16,7 @@ import pyudev
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
-    '192.168.0.2:9090'
+    '10.0.0.200:9090'
 ]
 dev = True
 audio_overlap = True
@@ -69,45 +69,45 @@ def reset_var(var):
 
     return var
 
-# def launch_cam(var, target_ip):
-#     if target_ip == '192.168.0.2:9090':
-#         var['cam_id'] = 0
-#         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
-#     if target_ip == '192.168.0.52:9090':
-#         var['cam_id'] = 1
-#         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
-
-#     return var
-
 def launch_cam(var, target_ip):
-    context = pyudev.Context()
-
-    for device in context.list_devices(subsystem='usb'):
-        if device.get('DEVPATH') == '/devices/pci0000:00/0000:00:14.0/usb1/1-7/1-7.4':
-            #192.168.0.2
-            ip02 = int(device.get('DEVNUM'))
-        
-        elif device.get('DEVPATH') == '/devices/pci0000:00/0000:00:14.0/usb1/1-8/1-8.4':
-            #192.168.0.52
-            ip52 = int(device.get('DEVNUM'))
-
-    if ip02 < ip52:
-        if target_ip == '192.168.0.2:9090':
-            var['cam_id'] = 0
-            var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
-        if target_ip == '192.168.0.52:9090':
-            var['cam_id'] = 1
-            var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
-        
-    else:
-        if target_ip == '192.168.0.2:9090':
-            var['cam_id'] = 1
-            var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
-        if target_ip == '192.168.0.52:9090':
-            var['cam_id'] = 0
-            var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+    if target_ip == '10.0.0.200:9090':
+        var['cam_id'] = 0
+        var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+    if target_ip == '192.168.0.52:9090':
+        var['cam_id'] = 1
+        var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
 
     return var
+
+# def launch_cam(var, target_ip):
+#     context = pyudev.Context()
+
+#     for device in context.list_devices(subsystem='usb'):
+#         if device.get('DEVPATH') == '/devices/pci0000:00/0000:00:14.0/usb1/1-7/1-7.4':
+#             #192.168.0.2
+#             ip02 = int(device.get('DEVNUM'))
+        
+#         elif device.get('DEVPATH') == '/devices/pci0000:00/0000:00:14.0/usb1/1-8/1-8.4':
+#             #192.168.0.52
+#             ip52 = int(device.get('DEVNUM'))
+
+#     if ip02 < ip52:
+#         if target_ip == '192.168.0.2:9090':
+#             var['cam_id'] = 0
+#             var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+#         if target_ip == '192.168.0.52:9090':
+#             var['cam_id'] = 1
+#             var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+        
+#     else:
+#         if target_ip == '192.168.0.2:9090':
+#             var['cam_id'] = 1
+#             var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+#         if target_ip == '192.168.0.52:9090':
+#             var['cam_id'] = 0
+#             var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+
+#     return var
 
 def launch_audio(var, target_ip):
     var['audio_player'] = audioPlayer(target_ip)
