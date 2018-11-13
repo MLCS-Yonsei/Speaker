@@ -40,6 +40,7 @@ def init_var():
         },
         'intro': False,
         'playing': False,
+        'robot_pos': False,
         'outro': False,
         'finish': False,
         'problem':False,
@@ -178,7 +179,7 @@ while True:
             '''
             # print(_v)
             if _v['robot_pos'] == False:
-                init_robot_pos()
+                # init_robot_pos()
                 _v['robot_pos'] = True
 
             if 'cam' in _v:
