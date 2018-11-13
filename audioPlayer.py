@@ -341,3 +341,13 @@ class audioPlayer():
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)
             self.playFile(audio_file['file_name'])
+
+    def problem(self, data, s_type, speaker='', target=''):
+        status = data
+
+        if status:
+            audio_files = list(filter(lambda af: af['category1'] == 'PB' and af['category2'] == 'PB' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
+        
+        if len(audio_files) > 0:
+            audio_file = random.choice(audio_files)
+            self.playFile(audio_file['file_name'])

@@ -3,8 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 # from utils import *
-# sys.path.insert(0, './bin/hand_tracking')
+# sys.path.insert(0, './bin')
 # from hand_tracking.utils import detector_utils as detector_utils
+from detection_test import Cam, detect_hand
 """Camera calibration"""
 '''
 def crop_img(img,box):
@@ -58,7 +59,7 @@ cv2.destroyAllWindows()
 
 
 """Check camera index"""
-
+'''
 # Create a VideoCapture object
 cap = cv2.VideoCapture(0)
 # Check if camera opened successfully
@@ -94,81 +95,12 @@ cap.release()
 
 # Closes all the frames
 cv2.destroyAllWindows() 
-
+'''
 
 """Check hand position"""
-'''
-def detect_hand(cam):
-    # Hands Detection
-    detection_graph, sess = detector_utils.load_inference_graph()
-
-    start_time = datetime.datetime.now()
-    num_frames = 0
-    (im_width, im_height) = cam.shape()
-    # max number of hands we want to detect/track
-    num_hands_detect = 2
-    ready_cnt = 0
-
-    while True:
-        # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-        ret, image_np = cam.read()
-        try:
-            image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
-        except:
-            print("Error converting to RGB")
-
-        # actual detection
-        boxes, scores = detector_utils.detect_objects(
-            image_np, detection_graph, sess)
-
-        # draw bounding boxes
-        detector_utils.draw_box_on_image(
-            num_hands_detect, 0.2, scores, boxes, im_width, im_height, image_np)
-        print(im_height)
-        ready_hands_cnt = 0
-        
-        for i in range(num_hands_detect):
-            (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
-                                          boxes[i][0] * im_height, boxes[i][2] * im_height)
-            # print(left, right, top, bottom)
-            if left > 155 and right < 540 and top > 300 and bottom < 490:
-                ready_hands_cnt += 1
-            
-            # print(ready_hands_cnt)
-
-        if ready_hands_cnt >= 1:
-            ready_cnt += 1
-        
-        print(ready_hands_cnt, ready_cnt)
-        if ready_cnt > 10:
-            return True
-        # Calculate Frames per second (FPS)
-        num_frames += 1
-        elapsed_time = (datetime.datetime.now() -
-                        start_time).total_seconds()
-        fps = num_frames / elapsed_time
-        
-        cam.show(cv2.cvtColor(
-            image_np, cv2.COLOR_RGB2BGR))
-
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            return False
-        
-class Cam():
-    def __init__(self, device_id, display=True):
-        self.cam = cv2.VideoCapture(int(device_id))   
-
-        if display:
-            self.window_name = 'Cam'+str(device_id)
-            cv2.namedWindow(self.window_name)
-            # cv2.setMouseCallback(self.window_name,mouse_callback)
-
-        if self.cam.isOpened() == False:
-            print('Can\'t open the CAM(%d)' % (CAM_ID))
-            exit()
 cam = Cam(0)
-detect_hand(cam)
-'''
+detection = detect_hand(cam)
+print(detection)
 
 # $ lsusb => check *** of '/dev/bus/usb/001/***'
 # $ udevadm info --query=property --name /dev/bus/usb/001/010  or $ udevadm info -q path -n /dev/bus/usb/001/010 => check devpath 

@@ -26,84 +26,7 @@ from hand_tracking.utils import detector_utils as detector_utils
 import cv2
 import datetime
 
-def detect_gender(image):
-    face_detect = face_detection_model('dlib', './bin/age_gender/Model/shape_predictor_68_face_landmarks.dat')
-    try:
-        faces, face_files, rectangles, tgtdir = face_detect.run(image)
 
-        return gender_estimate(face_files, image, tgtdir)
-    except:
-        pass
-
-def detect_human(cam):
-    CWD_PATH = os.getcwd()
-    CWD_PATH = os.path.abspath(os.path.join(CWD_PATH, os.pardir))
-    CWD_PATH = os.path.join(CWD_PATH, 'Speaker', 'bin')
-
-    # Path to frozen detection graph. This is the actual model that is used for the object detection.
-    MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17'
-    PATH_TO_CKPT = os.path.join(CWD_PATH, 'object_detection', MODEL_NAME, 'frozen_inference_graph.pb')
-
-    # List of the strings that is used to add correct label for each box.
-    PATH_TO_LABELS = os.path.join(CWD_PATH, 'object_detection', 'data', 'mscoco_label_map.pbtxt')
-
-    NUM_CLASSES = 90
-    prevTime = 0
-
-    # Loading label map
-    label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
-    categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES,
-                                                                use_display_name=True)
-    category_index = label_map_util.create_category_index(categories)
-
-    detection_graph = tf.Graph()
-    with detection_graph.as_default():
-        od_graph_def = tf.GraphDef()
-        with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
-            serialized_graph = fid.read()
-            od_graph_def.ParseFromString(serialized_graph)
-            tf.import_graph_def(od_graph_def, name='')
-
-    with detection_graph.as_default():
-        with tf.Session(graph=detection_graph) as sess:
-            # Load modules
-            mot_tracker = Sort() 
-            cnt = 0
-
-            while (True):
-                ret, frame = cam.read()
-
-                # Detection
-                image_process, person_box = detect_objects(frame, sess, detection_graph, category_index, mot_tracker)
-                
-                if person_box is not False:
-                    cnt += 1
-                else:
-                    cnt = 0 
-
-                curTime = time.time()
-                sec = curTime - prevTime
-                prevTime = curTime
-                fps = 1 / (sec)
-
-                str1 = "FPS : %0.1f" % fps
-                str2 = "Detecting Human . . ."
-                cv2.putText(frame, str1, (5, 20), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0))
-                cv2.putText(frame, str2, (100, 20), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0))
-                cam.show(frame)
-
-                if cnt > 10:
-                    break
-                    # return crop_img(frame, person_box)
-
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
-
-                # plt.figure(figsize=IMAGE_SIZE)
-                # plt.imshow(image_process)
-                # plt.show()
-
-    return crop_img(frame, person_box)
 
 def detect_objects(image_np, sess, detection_graph, category_index, mot_tracker):
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
@@ -206,23 +129,21 @@ def detect_hand(cam):
         for i in range(num_hands_detect):
             (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
                                           boxes[i][0] * im_height, boxes[i][2] * im_height)
-            # print(left, right, top, bottom)
-            if bottom < 240:
+            if bottom <240:
                 problem_cnt += 1 
-            if 420> left > 210 and 210 < right < 420 and 360 > top > 300 and 340 < bottom < 470:
+                print(problem_cnt)
+            if left > 155 and right < 540 and top > 300 and bottom < 490:
                 ready_hands_cnt += 1
-            
             # print(ready_hands_cnt)
-        if problem_cnt >= 1:
-            problem += 1
         if ready_hands_cnt >= 1:
             ready_cnt += 1
         
         print(ready_hands_cnt, ready_cnt)
         if problem > 5:
-            return 'P'
-        if ready_cnt > 10:
             return True
+        if ready_cnt > 10:
+            pass
+            # return True
         # Calculate Frames per second (FPS)
         num_frames += 1
         elapsed_time = (datetime.datetime.now() -

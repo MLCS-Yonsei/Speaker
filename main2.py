@@ -169,6 +169,13 @@ while True:
                     if _v['intro'] == True and _v['playing'] == False:
                         hand_detection = detect_hand(cam)
                         print("#3", hand_detection)
+                        if hand_detection == 'P':
+                            print('Problem')
+                            result = {}
+                            result['flag'] = 'problem'
+                            result['data'] = True
+                            audio_player = _v['audio_player']
+                            audio_player.play(result, 'BR', '', '')
 
                         if hand_detection == 1:
                             time.sleep(0.5)
@@ -187,7 +194,7 @@ while True:
             로딩중 별다른 액션 없음.
             '''
             _v = reset_game_var(_v)
-        elif stage == 3:
+        elif stage == 3 and gamedata["gamedata"]["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"] < 5100:
             '''
             게임중 Speaker 시작
             '''

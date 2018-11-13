@@ -164,20 +164,30 @@ while True:
                     
                     if _v['intro'] == False:
                         a_thread = Thread(target = playFile, args = (target_ip,'test_intro', ))
+
+                        result = {}
+                        result['flag'] = 'intro'
+                        result['data'] = True
+                        robot_speaking_thread = Thread(target = robot_audio_player.play, args = (result, 'BR', '', ''))
+                        robot_speaking_thread.start()
                         print("Playing intro file, sleep for ", 27, "Seconds")
                         a_thread.start()
                         a_thread.join()
 
                         _v['intro'] = True
 
-                    result = {}
-                    result['flag'] = 'intro'
-                    result['data'] = True
-                    robot_audio_player.play(result, 'BR', '', '')
-
                     if _v['intro'] == True and _v['playing'] == False:
                         hand_detection = detect_hand(cam)
                         print("#3", hand_detection)
+                        if hand_detection == 'P':
+                            print('Problem')
+                            result = {}
+                            result['flag'] = 'problem'
+                            result['data'] = True
+                            audio_player = _v['audio_player']
+                            robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'BR', '', ''))
+                            robot_speaking_thread.start()
+                            # audio_player.play(result, 'BR', '', '')
 
                         if hand_detection == 1:
                             time.sleep(0.5)
@@ -192,7 +202,9 @@ while True:
                             result = {}
                             result['flag'] = 'ready_1'
                             result['data'] = True
-                            robot_audio_player.play(result, 'BR', '', '')    
+                            robot_speaking_thread = Thread(target = robot_audio_player.play, args = (result, 'BR', '', ''))
+                            robot_speaking_thread.start()
+                            # robot_audio_player.play(result, 'BR', '', '')    
 
                             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -219,7 +231,7 @@ while True:
             로딩중 별다른 액션 없음.
             '''
             _v = reset_game_var(_v)
-        elif stage == 3:
+        elif stage == 3 and gamedata["gamedata"]["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"] < 5100:
             '''
             게임중 Speaker 시작
             '''
