@@ -56,6 +56,7 @@ def init_var():
 def reset_game_var(var):
     var['outro'] = False
     var['finish'] = False
+    var['problem'] = False
     var['lap_distance_t'] = 0
     var['overtake_r0_t0'] = None
     var['prev_crash'] = None
@@ -180,7 +181,7 @@ while True:
                     if _v['intro'] == True and _v['playing'] == False:
                         hand_detection = detect_hand(cam)
                         print("#3", hand_detection)
-                        if hand_detection == 'P':
+                        if hand_detection == 'P' and _v['problem'] == False:
                             print('Problem')
                             result = {}
                             result['flag'] = 'problem'
@@ -188,6 +189,7 @@ while True:
                             audio_player = _v['audio_player']
                             robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'BR', '', ''))
                             robot_speaking_thread.start()
+                            _v['problem'] = True
                             # audio_player.play(result, 'BR', '', '')
 
                         if hand_detection == 1:
