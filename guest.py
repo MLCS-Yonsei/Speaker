@@ -197,6 +197,7 @@ while True:
                             result['data'] = True
                             robot_speaking_thread = Thread(target = robot_audio_player.play, args = (result, 'BR', '', ''))
                             robot_speaking_thread.start()
+                            robot_speaking_thread.join()
                             # robot_audio_player.play(result, 'BR', '', '')  
 
                             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

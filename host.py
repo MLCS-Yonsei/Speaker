@@ -42,6 +42,7 @@ def init_var():
         'playing': False,
         'outro': False,
         'finish': False,
+        'problem':False,
         'lap_distance_t': 0,
         'overtake_r0_t0': None,
         'prev_crash': None,
@@ -204,6 +205,7 @@ while True:
                             result['data'] = True
                             robot_speaking_thread = Thread(target = robot_audio_player.play, args = (result, 'BR', '', ''))
                             robot_speaking_thread.start()
+                            robot_speaking_thread.join()
                             # robot_audio_player.play(result, 'BR', '', '')    
 
                             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
