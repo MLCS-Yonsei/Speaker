@@ -102,12 +102,12 @@ def keyPress(keys, key):
 @app.route('/start', methods=['GET'])
 def start():
     # Move to bottom of the menu
-    # shell = win32com.client.Dispatch("WScript.Shell")
-    # shell.SendKeys('%')
+    shell = win32com.client.Dispatch("WScript.Shell")
+    shell.SendKeys('%')
     
-    # PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
-    # PyCWnd1.SetForegroundWindow()
-    # PyCWnd1.SetFocus()
+    PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
+    PyCWnd1.SetForegroundWindow()
+    PyCWnd1.SetFocus()
     
     keys = Keys()
     keyPress(keys, "J")
@@ -122,13 +122,13 @@ def start():
 
 @app.route('/finish', methods=['GET'])
 def finish():
-    # Move to bottom of the menu
-    # shell = win32com.client.Dispatch("WScript.Shell")
-    # shell.SendKeys('%')
+    Move to bottom of the menu
+    shell = win32com.client.Dispatch("WScript.Shell")
+    shell.SendKeys('%')
     
-    # PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
-    # PyCWnd1.SetForegroundWindow()
-    # PyCWnd1.SetFocus()
+    PyCWnd1 = win32ui.FindWindow( None, "Project CARS™" )
+    PyCWnd1.SetForegroundWindow()
+    PyCWnd1.SetFocus()
     
     keys = Keys()
     keyPress(keys, "R")
@@ -150,7 +150,7 @@ def host_ready():
     for i in range(1,4):
         keyPress(keys, "UP")
         keyPress(keys, "RIGHT")
-        
+
     keyPress(keys, "RETURN")
   
     return jsonify({}), 200
