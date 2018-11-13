@@ -71,6 +71,7 @@ def reset_var(var):
     var['intro'] = False
     var['playing'] = False
     var['person_attr']['gender'] = None
+    var['robot_pos'] = False
 
     return var
 
@@ -119,6 +120,35 @@ def launch_audio(var, target_ip):
 
     return var
 
+def init_robot_pos():
+    rs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    rs.connect(("10.0.0.195", 8251))
+
+    cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    cs.connect(("10.0.0.195", 8250))
+    # Going Back
+    data = '0012STX010111ETX'
+    cs.send(data.encode())
+
+    time.sleep(5)
+    time.sleep(0.5)
+    
+    # init_pos = get_cur_pos
+    # print(init_pos(rs))
+
+    data = '0012STX100111ETX'
+    cs.send(data.encode())
+
+    time.sleep(2.5)
+    print("Stopping")
+
+    data = '0012STX110000ETX'
+    cs.send(data.encode())
+
+    time.sleep(1)
+
+    rs.close()
+    cs.close()
 
 variables = {}
 for target_ip in target_ips:
@@ -147,6 +177,10 @@ while True:
             재생 후 양손이 디텍트되면 게임 스타트 매크로 시작. + 스타트 멘트 재생
             '''
             # print(_v)
+            if _v['robot_pos'] == False:
+                init_robot_pos()
+                _v['robot_pos'] = True
+
             if 'cam' in _v:
                 cam = _v['cam']
                 # print(_v)
