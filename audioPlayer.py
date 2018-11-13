@@ -83,12 +83,6 @@ class audioPlayer():
             p.terminate()
             # time.sleep(sound.duration_seconds)
 
-    def check_overlap(self, prev, cur):
-        if prev == cur:
-            return True
-        else:
-            return False
-
     def play(self, data, s_type, gender, target=''):
         method = getattr(self, data['flag'], lambda: "nothing")
         # print(gender)
@@ -121,6 +115,7 @@ class audioPlayer():
     
         audio_file = random.choice(audio_files)
         if audio_file['file_name'] != self.prev_file:
+            print(audio_file['file_name'],self.prev_file)
             self.playFile(audio_file['file_name'])
             self.prev_file = audio_file['file_name']
 
@@ -159,6 +154,7 @@ class audioPlayer():
 
         audio_file = random.choice(audio_files)
         if audio_file['file_name'] != self.prev_file:
+            print(audio_file['file_name'],self.prev_file)
             self.playFile(audio_file['file_name'])
             self.prev_file = audio_file['file_name']
 
@@ -183,6 +179,7 @@ class audioPlayer():
             print("AP : Collision")
             audio_file = random.choice(audio_files)
             if audio_file['file_name'] != self.prev_file:
+                print(audio_file['file_name'],self.prev_file)
                 self.playFile(audio_file['file_name'])
                 self.prev_file = audio_file['file_name']
 
@@ -207,6 +204,7 @@ class audioPlayer():
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)
             if audio_file['file_name'] != self.prev_file:
+                print(audio_file['file_name'],self.prev_file)
                 self.playFile(audio_file['file_name'])
                 self.prev_file = audio_file['file_name']
 
@@ -257,6 +255,7 @@ class audioPlayer():
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)
             if audio_file['file_name'] != self.prev_file:
+                print(audio_file['file_name'],self.prev_file)
                 self.playFile(audio_file['file_name'])
                 self.prev_file = audio_file['file_name']
 
