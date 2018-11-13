@@ -33,6 +33,12 @@ fp_dist = speed_label[:,0].astype(float)
 fp_sp = speed_label[:,1].astype(float)
 # fp_steer = speed_label[:,2].astype(float)
 
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+sock.bind((HOST, PORT))
+sock.listen()
+conn, addr = sock.accept()
+
 def init_var():
     return {
         'person_attr': {
@@ -242,28 +248,30 @@ while True:
                             result['data'] = True
                             robot_speaking_thread = Thread(target = robot_audio_player.play, args = (result, 'BR', '', ''))
                             robot_speaking_thread.start()
-                            robot_speaking_thread.join()
+                            # robot_speaking_thread.join()
                             # robot_audio_player.play(result, 'BR', '', '')    
 
-                            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                            sock.bind((HOST, PORT))
-                            sock.listen()
-                            conn, addr = sock.accept()
+                            a_thread.join()
+                            print("Game Start")
                             while True:
                                 data = conn.recv(1024)
+                                
                                 if data == b'\x00':
+                                    time.sleep(3)
+                                    print("Ready signal Rcvd")
                                     url = 'http://' + target_ip.split(':')[0] + ':3000/start'
                                     r = requests.get(url)
-                                    sock.close()
+                                    # sock.close()
                                     result = {}
                                     result['flag'] = 'game_start'
                                     result['data'] = True
-                                    robot_audio_player.play(result, 'BR', '', '') 
+                                    robot_speaking_thread_2 = Thread(target = robot_audio_player.play, args = (result, 'BR', '', ''))
+                                    robot_speaking_thread_2.start()
+                                    
                                     break
                             
                                     
-                            a_thread.join()
+                            
 
         elif stage == 2:
             '''

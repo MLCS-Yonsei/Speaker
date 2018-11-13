@@ -33,6 +33,15 @@ fp_dist = speed_label[:,0].astype(float)
 fp_sp = speed_label[:,1].astype(float)
 # fp_steer = speed_label[:,2].astype(float)
 
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+while 1:
+    try:
+        sock.connect((HOST, PORT))
+        break
+    except:
+        continue
+
 def init_var():
     return {
         'person_attr': {
@@ -200,19 +209,13 @@ while True:
                             result['data'] = True
                             robot_speaking_thread = Thread(target = robot_audio_player.play, args = (result, 'BR', '', ''))
                             robot_speaking_thread.start()
-                            robot_speaking_thread.join()
+                            # robot_speaking_thread.join()
                             # robot_audio_player.play(result, 'BR', '', '')  
 
-                            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                            while 1:
-                                try:
-                                    sock.connect((HOST, PORT))
-                                    break
-                                except:
-                                    continue
+                            
+                            print("Ready signal sent")
                             sock.sendall(bytes(1))
-                            sock.close()
+                            # sock.close()
 
                             # url = 'http://' + target_ip.split(':')[0] + ':3000/guest_ready'
                             # r = requests.get(url)                            

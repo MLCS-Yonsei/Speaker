@@ -198,12 +198,16 @@ while True:
             '''
             로딩중 별다른 액션 없음.
             '''
+            print("Before Start")
             _v = reset_game_var(_v)
             audio_player = local_audio_player
             result = {}
             result['flag'] = 'before_start'
             result['data'] = True
-            audio_player.play(result, 'BR', '', '')
+            robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'BR', '', ''))
+            robot_speaking_thread.start()
+            robot_speaking_thread.join()
+            # audio_player.play(result, 'BR', '', '')
 
         elif stage == 3 and gamedata["gamedata"]["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"] < 5100:
             '''
@@ -396,10 +400,10 @@ while True:
                             _v['outro'] = True
 
                 _v = reset_var(_v)
-                time.sleep(5)
+                sleep(5)
                 url = 'http://' + target_ip.split(':')[0] + ':3000/finish'
                 r = requests.get(url)
-                time.sleep(10)
+                sleep(10)
 
         elif stage == 5:
             if enable_broadcasting is True:
@@ -452,10 +456,10 @@ while True:
                             _v['outro'] = True
 
                 _v = reset_var(_v)
-                time.sleep(5)
+                sleep(5)
                 url = 'http://' + target_ip.split(':')[0] + ':3000/finish'
                 r = requests.get(url)
-                time.sleep(10)
+                sleep(10)
 
         else:
             pass
