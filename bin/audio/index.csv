@@ -1670,10 +1670,6 @@ slow01M.wav,Jiwoong,NV,,MI,SL
 slow02M.wav,Jiwoong,NV,,MI,SL
 win_1.wav,Furby,BR,P1,RS,WIN
 win_2.wav,Furby,BR,P2,RS,WIN
-lose_1_01.wav,Furby,BR,P1,RS,LOSE
-lose_1_02.wav,Furby,BR,P1,RS,LOSE
-lose_2_01.wav,Furby,BR,P2,RS,LOSE
-lose_2_02.wav,Furby,BR,P2,RS,LOSE
 left-1.wav,Ari,NV,,RS,WIN
 left-2.wav,Ari,NV,,RS,WIN
 left-3.wav,Ari,NV,,RS,WIN
@@ -1696,3 +1692,7 @@ right-8.wav,Ari,BR,P2,RS,LOSE
 right-9.wav,Ari,BR,P1,MI,FAST
 right-10.wav,Ari,BR,P2,MI,FAST
 before_start_short.wav,Furby,BR,,RS,BS
+intro.wav,Furby,BR,,RE,INT
+1_ready.wav,Furby,BR,,RE,R1
+2_ready.wav,Furby,BR,,RE,R2
+game_start.wav,Furby,BR,,RE,GS

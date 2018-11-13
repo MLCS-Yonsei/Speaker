@@ -73,8 +73,8 @@ def launch_cam(var, target_ip):
     if target_ip == '10.0.0.200:9090':
         var['cam_id'] = 0
         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
-    if target_ip == '192.168.0.52:9090':
-        var['cam_id'] = 1
+    if target_ip == '10.0.0.121:9090':
+        var['cam_id'] = 0
         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
 
     return var

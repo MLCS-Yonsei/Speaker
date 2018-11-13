@@ -374,6 +374,7 @@ while True:
             time.sleep(10)
 
         else:
+            print("Error while getting CREST API")
             pass
 
         variables[target_ip] = _v

@@ -350,6 +350,23 @@ while True:
                 완주
                 종료 멘트 재생, stage 1로 대기
                 '''
+                crest_data = send_crest_requset('10.0.0.200:9090', "crest-monitor", {})
+                rank = crest_data["participants"]["mParticipantInfo"][0]["mRacePosition"]
+                # result = {}
+                # result['target_ip'] = target_ip
+                # result['flag'] = 'finish'
+                # result['data'] = {
+                # 'rank' : rank
+                # }
+                audio_player = local_audio_player
+                result = {}
+                result['flag'] = 'finish_furby'
+                result['data'] = {
+                    'rank' : rank
+                }
+                if _v['finish'] is False:
+                    audio_player.play(result, 'BR', '', '')
+                    _v['finish'] = True
 
                 if _v['outro'] is False:
                     if audio_overlap is False:
@@ -386,6 +403,24 @@ while True:
                 나가기
                 종료 멘트 재생, stage 1로 대기
                 '''
+                crest_data = send_crest_requset('10.0.0.200:9090', "crest-monitor", {})
+                rank = crest_data["participants"]["mParticipantInfo"][0]["mRacePosition"]
+                # result = {}
+                # result['target_ip'] = target_ip
+                # result['flag'] = 'finish'
+                # result['data'] = {
+                # 'rank' : rank
+                # }
+                audio_player = local_audio_player
+                result = {}
+                result['flag'] = 'finish_furby'
+                result['data'] = {
+                    'rank' : rank
+                }
+                if _v['finish'] is False:
+                    audio_player.play(result, 'BR', '', '')
+                    _v['finish'] = True
+
                 if _v['outro'] is False:
                     if audio_overlap is False:
                         a_thread = Thread(target = playFile, args = (target_ip,'test_outro', ))

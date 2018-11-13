@@ -36,6 +36,7 @@ class audioPlayer():
             self.network_flag = True
         self.fast = 1
         self.audio_path = './bin/audio/'
+        self.prev_file = None
         # self.method()
         with open('./bin/audio/index.csv', 'r') as csvfile:
             files = list(csv.DictReader(csvfile, delimiter=","))
@@ -82,6 +83,12 @@ class audioPlayer():
             p.terminate()
             # time.sleep(sound.duration_seconds)
 
+    def check_overlap(self, prev, cur):
+        if prev == cur:
+            return True
+        else:
+            return False
+
     def play(self, data, s_type, gender, target=''):
         method = getattr(self, data['flag'], lambda: "nothing")
         # print(gender)
@@ -113,7 +120,9 @@ class audioPlayer():
             audio_files = list(filter(lambda af: af['category1'] == 'OT' and af['category2'] == 'F' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
     
         audio_file = random.choice(audio_files)
-        self.playFile(audio_file['file_name'])
+        if audio_file['file_name'] != self.prev_file:
+            self.playFile(audio_file['file_name'])
+            self.prev_file = audio_file['file_name']
 
 
     def chase(self, data, s_type, speaker='', target=''):
@@ -149,7 +158,9 @@ class audioPlayer():
                 audio_files = list(filter(lambda af: af['category1'] == 'CS' and af['category2'] == 'RF' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
 
         audio_file = random.choice(audio_files)
-        self.playFile(audio_file['file_name'])
+        if audio_file['file_name'] != self.prev_file:
+            self.playFile(audio_file['file_name'])
+            self.prev_file = audio_file['file_name']
 
     def collision(self, data, s_type, speaker='', target=''):
         crash_state = data['crash_state']
@@ -171,7 +182,9 @@ class audioPlayer():
         if len(audio_files) > 0:
             print("AP : Collision")
             audio_file = random.choice(audio_files)
-            self.playFile(audio_file['file_name'])
+            if audio_file['file_name'] != self.prev_file:
+                self.playFile(audio_file['file_name'])
+                self.prev_file = audio_file['file_name']
 
     def random(self, data, s_type, speaker='', target=''):
         event = data['event']
@@ -193,7 +206,9 @@ class audioPlayer():
 
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)
-            self.playFile(audio_file['file_name'])
+            if audio_file['file_name'] != self.prev_file:
+                self.playFile(audio_file['file_name'])
+                self.prev_file = audio_file['file_name']
 
     def lapDistance(self, data, s_type, speaker='', target=''):
         event = data['event']
@@ -241,7 +256,9 @@ class audioPlayer():
         print(audio_files)
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)
-            self.playFile(audio_file['file_name'])
+            if audio_file['file_name'] != self.prev_file:
+                self.playFile(audio_file['file_name'])
+                self.prev_file = audio_file['file_name']
 
     def speed_check(self, data, s_type, speaker='', target=''):
         status = data['status']
@@ -250,7 +267,9 @@ class audioPlayer():
             audio_files = list(filter(lambda af: af['category1'] == 'MI' and af['category2'] == 'SL' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)
-            self.playFile(audio_file['file_name'])
+            if audio_file['file_name'] != self.prev_file:
+                self.playFile(audio_file['file_name'])
+                self.prev_file = audio_file['file_name']
 
     def finish(self, data, s_type, speaker='', target=''):
         rank = data['rank']
@@ -268,6 +287,57 @@ class audioPlayer():
 
         if status:
             audio_files = list(filter(lambda af: af['category1'] == 'RS' and af['category2'] == 'BS' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
+        
+        if len(audio_files) > 0:
+            audio_file = random.choice(audio_files)
+            self.playFile(audio_file['file_name'])
+
+    def finish_furby(self, data, s_type, speaker='', target=''):
+        rank = data['rank']
+
+        if rank == 1:
+            audio_files = list(filter(lambda af: af['category1'] == 'RS' and af['category2'] == 'WIN' and af['type'] == s_type and af['target'] == 'P1' and af['speaker'] == speaker, self.audio_files))
+        else:
+            audio_files = list(filter(lambda af: af['category1'] == 'RS' and af['category2'] == 'WIN' and af['type'] == s_type and af['target'] == 'P2' and af['speaker'] == speaker, self.audio_files))
+        if len(audio_files) > 0:
+            audio_file = random.choice(audio_files)
+            self.playFile(audio_file['file_name'])
+
+    def intro(self, data, s_type, speaker='', target=''):
+        status = data
+
+        if status:
+            audio_files = list(filter(lambda af: af['category1'] == 'RE' and af['category2'] == 'INT' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
+        
+        if len(audio_files) > 0:
+            audio_file = random.choice(audio_files)
+            self.playFile(audio_file['file_name'])
+
+    def ready_1(self, data, s_type, speaker='', target=''):
+        status = data
+
+        if status:
+            audio_files = list(filter(lambda af: af['category1'] == 'RE' and af['category2'] == 'R1' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
+        
+        if len(audio_files) > 0:
+            audio_file = random.choice(audio_files)
+            self.playFile(audio_file['file_name'])
+
+    def ready_2(self, data, s_type, speaker='', target=''):
+        status = data
+
+        if status:
+            audio_files = list(filter(lambda af: af['category1'] == 'RE' and af['category2'] == 'R2' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
+        
+        if len(audio_files) > 0:
+            audio_file = random.choice(audio_files)
+            self.playFile(audio_file['file_name'])
+
+    def game_start(self, data, s_type, speaker='', target=''):
+        status = data
+
+        if status:
+            audio_files = list(filter(lambda af: af['category1'] == 'RE' and af['category2'] == 'GS' and af['type'] == s_type and af['target'] == target and af['speaker'] == speaker, self.audio_files))
         
         if len(audio_files) > 0:
             audio_file = random.choice(audio_files)

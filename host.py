@@ -121,7 +121,7 @@ def launch_audio(var, target_ip):
 variables = {}
 for target_ip in target_ips:
     variables[target_ip] = init_var()
-
+robot_audio_player = audioPlayer('10.0.0.195')
 local_audio_player = audioPlayer('localhost')
 for target_ip in target_ips:
     variables[target_ip] = launch_cam(variables[target_ip], target_ip)
@@ -161,6 +161,7 @@ while True:
 
                     print("#1")
                 else:
+                    
                     if _v['intro'] == False:
                         a_thread = Thread(target = playFile, args = (target_ip,'test_intro', ))
                         print("Playing intro file, sleep for ", 27, "Seconds")
@@ -168,6 +169,11 @@ while True:
                         a_thread.join()
 
                         _v['intro'] = True
+
+                    result = {}
+                    result['flag'] = 'intro'
+                    result['data'] = True
+                    robot_audio_player.play(result, 'BR', '', '')
 
                     if _v['intro'] == True and _v['playing'] == False:
                         hand_detection = detect_hand(cam)
@@ -183,6 +189,11 @@ while True:
                             url = 'http://' + target_ip.split(':')[0] + ':3000/host_ready'
                             r = requests.get(url)
                             
+                            result = {}
+                            result['flag'] = 'ready_1'
+                            result['data'] = True
+                            robot_audio_player.play(result, 'BR', '', '')    
+
                             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                             sock.bind((HOST, PORT))
@@ -193,16 +204,11 @@ while True:
                                 if data == b'\x00':
                                     url = 'http://' + target_ip.split(':')[0] + ':3000/start'
                                     r = requests.get(url)
-                                    # keys = Keys()
-                                    # keyPress(keys, "J")
-                                    # keyPress(keys, "j")
-
-                                    # for i in range(1,6):
-                                    #     keyPress(keys, "UP")
-                                    #     keyPress(keys, "LEFT")
-
-                                    # keyPress(keys, "RETURN")
                                     sock.close()
+                                    result = {}
+                                    result['flag'] = 'game_start'
+                                    result['data'] = True
+                                    robot_audio_player.play(result, 'BR', '', '') 
                                     break
                             
                                     
