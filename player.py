@@ -122,7 +122,7 @@ def start():
 
 @app.route('/finish', methods=['GET'])
 def finish():
-    Move to bottom of the menu
+    # Move to bottom of the menu
     shell = win32com.client.Dispatch("WScript.Shell")
     shell.SendKeys('%')
     
