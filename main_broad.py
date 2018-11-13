@@ -43,6 +43,7 @@ def init_var():
         'intro': False,
         'playing': False,
         'outro': False,
+        'finish': False,
         'lap_distance_t': 0,
         'overtake_r0_t0': None,
         'prev_crash': None,
@@ -55,6 +56,7 @@ def init_var():
 
 def reset_game_var(var):
     var['outro'] = False
+    var['finish'] = False
     var['lap_distance_t'] = 0
     var['overtake_r0_t0'] = None
     var['prev_crash'] = None
@@ -203,7 +205,7 @@ while True:
             result['data'] = True
             audio_player.play(result, 'BR', '', '')
 
-        elif stage == 3 gamedata["gamedata"]["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"] < 5100:
+        elif stage == 3 and gamedata["gamedata"]["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"] < 5100:
             '''
             게임중 Speaker 시작
             '''
@@ -345,7 +347,7 @@ while True:
 
             # print(lap_distance_result, overtake_result, crash_result, chase_result, target_ip)
         elif stage == 4:
-            if enable_broadcasting is False:
+            if enable_broadcasting is True:
                 '''
                 완주
                 종료 멘트 재생, stage 1로 대기
@@ -365,7 +367,9 @@ while True:
                     'rank' : rank
                 }
                 if _v['finish'] is False:
-                    audio_player.play(result, 'BR', '', '')
+                    robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'BR', '', ''))
+                    robot_speaking_thread.start()
+                    # audio_player.play(result, 'BR', '', '')
                     _v['finish'] = True
 
                 if _v['outro'] is False:
@@ -398,7 +402,7 @@ while True:
                 time.sleep(10)
 
         elif stage == 5:
-            if enable_broadcasting is False:
+            if enable_broadcasting is True:
                 '''
                 나가기
                 종료 멘트 재생, stage 1로 대기
@@ -418,7 +422,10 @@ while True:
                     'rank' : rank
                 }
                 if _v['finish'] is False:
-                    audio_player.play(result, 'BR', '', '')
+                    robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'BR', '', ''))
+                    robot_speaking_thread.start()
+                    robot_speaking_thread.join()
+                    # audio_player.play(result, 'BR', '', '')
                     _v['finish'] = True
 
                 if _v['outro'] is False:

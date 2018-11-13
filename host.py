@@ -233,7 +233,7 @@ while True:
                             a_thread.start()
 
                             _v['playing'] = True
-
+                            time.sleep(0.1)
                             url = 'http://' + target_ip.split(':')[0] + ':3000/host_ready'
                             r = requests.get(url)
                             

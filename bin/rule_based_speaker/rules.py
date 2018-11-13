@@ -204,13 +204,19 @@ def overtake(data, target_ip, r0_t0):
                     if r0_t0 > r0_t1:
                         # Overtaked
                         print(target_ip,'추월')
-                        c = ranks.index(r0_t1 + 1)
-                        status = True
+                        try:
+                            c = ranks.index(r0_t1 + 1)
+                            status = True
+                        except:
+                            pass
                     elif r0_t0 < r0_t1:
                         # Overtaken
                         print(target_ip,'추월당함')
-                        c = ranks.index(r0_t1 - 1)
-                        status = False
+                        try:
+                            c = ranks.index(r0_t1 - 1)
+                            status = False
+                        except:
+                            pass
                     else:
                         c = False
 
