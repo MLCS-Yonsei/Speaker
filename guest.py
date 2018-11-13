@@ -138,7 +138,7 @@ while True:
         # print("Stage:", stage)
         # stage = 1
         _v = variables[target_ip]
-        print("#2")
+        # print("#2")
         if stage == 1 and _v['playing'] == False:
             '''
             로비에서 대기중인 상황.
