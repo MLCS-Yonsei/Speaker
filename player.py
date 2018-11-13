@@ -116,7 +116,6 @@ def start():
     for i in range(1,4):
         keyPress(keys, "UP")
         keyPress(keys, "LEFT")
-    time.sleep(0.1)
     keyPress(keys, "RETURN")
   
     return jsonify({}), 200
@@ -151,7 +150,7 @@ def host_ready():
     for i in range(1,4):
         keyPress(keys, "UP")
         keyPress(keys, "RIGHT")
-    time.sleep(0.1)
+        
     keyPress(keys, "RETURN")
   
     return jsonify({}), 200
