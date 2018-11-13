@@ -203,7 +203,7 @@ while True:
             result['data'] = True
             audio_player.play(result, 'BR', '', '')
 
-        elif stage == 3:
+        elif stage == 3 gamedata["gamedata"]["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"] < 5100:
             '''
             게임중 Speaker 시작
             '''

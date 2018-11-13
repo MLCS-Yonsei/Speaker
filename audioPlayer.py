@@ -342,7 +342,7 @@ class audioPlayer():
             audio_file = random.choice(audio_files)
             self.playFile(audio_file['file_name'])
 
-    def problem(self, data, s_type, speaker='', target=''):
+    def problem(self, data, s_type, speaker='Ari', target=''):
         status = data
 
         if status:

@@ -180,7 +180,7 @@ while True:
                             result['flag'] = 'problem'
                             result['data'] = True
                             audio_player = _v['audio_player']
-                            robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'BR', '', ''))
+                            robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'NV', '', ''))
                             robot_speaking_thread.start()
                             _v['problem'] = True
                             # audio_player.play(result, 'BR', '', '')
