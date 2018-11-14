@@ -209,15 +209,15 @@ def detect_hand(cam):
             # print(left, right, top, bottom)
             if bottom < 240:
                 problem_cnt += 1 
-            if 120 < left < 180 and 270 < right < 360 and 330 < top and 380 < bottom:
+            if 150 < left < 210 and 270 < right < 360 and 330 < top < 380 and 420 < bottom:
                 ready_hands_cnt += 1
-            elif 150 < left < 210 and 220 < right < 280 and 330 < top and 380 < bottom:
+            elif 150 < left < 210 and 220 < right < 280 and 350 < top < 410 and 440 < bottom:
                 ready_hands_cnt += 1
             
             # print(ready_hands_cnt)
-            elif 340 < left < 400 and 430 < right < 590 and 330 < top and 380 < bottom:
+            elif 340 < left < 400 and 430 < right < 590 and 330 < top < 400 and 440 < bottom:
                 ready_hands_cnt += 1
-            elif 300 < left < 360 and 420 < right < 480 and 330 < top and 380 < bottom:
+            elif 300 < left < 360 and 420 < right < 480 and 310 < top < 360 and 410 < bottom:
                 ready_hands_cnt += 1
             
             # print(ready_hands_cnt)

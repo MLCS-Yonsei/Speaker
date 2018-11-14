@@ -25,13 +25,13 @@ def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
             if delta.seconds > car_position_reset_time:
                 # 리셋
                 print("Reset the car")
-                a_thread = Thread(target = playFile, args = (target_ip,'test_reset_car', ))
-                a_thread.start()
+                # a_thread = Thread(target = playFile, args = (target_ip,'test_reset_car', ))
+                # a_thread.start()
 
-                url = 'http://' + target_ip.split(':')[0] + ':3000/car_position_reset'
-                r = requests.get(url)
+                # url = 'http://' + target_ip.split(':')[0] + ':3000/car_position_reset'
+                # r = requests.get(url)
 
-                a_thread.join()
+                # a_thread.join()
 
                 t = None
         else:
@@ -369,7 +369,7 @@ def chase(data, target_ip, recent_fcar_distances, recent_scar_distances, msg_rat
                                 'alone': False
                             }  
 
-                            if recent_fcar_distances[19] - recent_fcar_distances[0] < 100 and recent_fcar_distances[19] < 50:
+                            if recent_fcar_distances[0] - recent_fcar_distances[19] < 80 and 30 < recent_fcar_distances[19] < 50:
                                 # 잘 쫓아가고 있을때
                                 print(target_ip,'잘 쫒아감!')
                                 result['data']['acc'] = True

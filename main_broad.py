@@ -400,10 +400,10 @@ while True:
                             _v['outro'] = True
 
                 _v = reset_var(_v)
-                sleep(5)
+                time.sleep(5)
                 url = 'http://' + target_ip.split(':')[0] + ':3000/finish'
                 r = requests.get(url)
-                sleep(10)
+                time.sleep(10)
 
         elif stage == 5:
             if enable_broadcasting is True:
@@ -456,10 +456,10 @@ while True:
                             _v['outro'] = True
 
                 _v = reset_var(_v)
-                sleep(5)
+                time.sleep(5)
                 url = 'http://' + target_ip.split(':')[0] + ':3000/finish'
                 r = requests.get(url)
-                sleep(10)
+                time.sleep(10)
 
         else:
             pass
