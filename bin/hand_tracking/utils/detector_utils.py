@@ -16,7 +16,7 @@ detection_graph = tf.Graph()
 sys.path.append("..")
 
 # score threshold for showing bounding boxes.
-_score_thresh = 0.27
+_score_thresh = 1#0.27
 
 MODEL_NAME = 'hand_inference_graph'
 # Path to frozen detection graph. This is the actual model that is used for the object detection.

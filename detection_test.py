@@ -122,27 +122,40 @@ def detect_hand(cam):
 
         # draw bounding boxes
         detector_utils.draw_box_on_image(
-            num_hands_detect, 0.2, scores, boxes, im_width, im_height, image_np)
+            num_hands_detect, 0.5, scores, boxes, im_width, im_height, image_np)
 
         ready_hands_cnt = 0
         problem_cnt = 0
         for i in range(num_hands_detect):
             (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
                                           boxes[i][0] * im_height, boxes[i][2] * im_height)
-            if bottom <240:
+            print(left,right, top, bottom)
+            if bottom < 240:
                 problem_cnt += 1 
                 print(problem_cnt)
-            if left > 155 and right < 540 and top > 300 and bottom < 490:
+            if 120 < left < 180 and 270 < right < 360 and 330 < top and 380 < bottom:
                 ready_hands_cnt += 1
+            if 150 < left < 210 and 220 < right < 280 and 330 < top and 380 < bottom:
+                ready_hands_cnt += 1
+            
             # print(ready_hands_cnt)
+            elif 340 < left < 400 and 430 < right < 590 and 330 < top and 380 < bottom:
+                ready_hands_cnt += 1
+            elif 300 < left < 360 and 420 < right < 480 and 330 < top and 380 < bottom:
+                ready_hands_cnt += 1
         if ready_hands_cnt >= 1:
             ready_cnt += 1
+        if problem_cnt >= 1:
+            problem += 1
         
         print(ready_hands_cnt, ready_cnt)
-        if problem > 5:
+        if problem > 10:
+            print('problem')
+            break
             return True
-        if ready_cnt > 10:
-            pass
+        if ready_cnt > 15:
+            print('ready')
+            break
             # return True
         # Calculate Frames per second (FPS)
         num_frames += 1

@@ -98,7 +98,7 @@ cv2.destroyAllWindows()
 '''
 
 """Check hand position"""
-cam = Cam(0)
+cam = Cam(1)
 detection = detect_hand(cam)
 print(detection)
 
