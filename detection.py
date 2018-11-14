@@ -207,7 +207,7 @@ def detect_hand(cam):
             (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
                                           boxes[i][0] * im_height, boxes[i][2] * im_height)
             # print(left, right, top, bottom)
-            if bottom < 240:
+            if bottom < 220:
                 problem_cnt += 1 
             if 150 < left < 210 and 270 < right < 360 and 330 < top < 380 and 420 < bottom:
                 ready_hands_cnt += 1

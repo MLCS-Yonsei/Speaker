@@ -369,7 +369,7 @@ def chase(data, target_ip, recent_fcar_distances, recent_scar_distances, msg_rat
                                 'alone': False
                             }  
 
-                            if recent_fcar_distances[0] - recent_fcar_distances[19] < 80 and 30 < recent_fcar_distances[19] < 50:
+                            if 0 < recent_fcar_distances[0] - recent_fcar_distances[19] < 80 and 30 < recent_fcar_distances[19] < 50:
                                 # 잘 쫓아가고 있을때
                                 print(target_ip,'잘 쫒아감!')
                                 result['data']['acc'] = True
@@ -409,11 +409,11 @@ def chase(data, target_ip, recent_fcar_distances, recent_scar_distances, msg_rat
                                 'alone': False
                             }  
 
-                            if recent_scar_distances[19] - recent_scar_distances[0] > 100 and recent_scar_distances[19] < 50:
+                            if recent_scar_distances[19] - recent_scar_distances[0] > 100 and 50 < recent_scar_distances[19]:
                                 # 잘 도망가고 있을때
                                 print(target_ip,'잘 도망가!')
                                 result['data']['acc'] = True
-                            elif  recent_scar_distances[19] - recent_scar_distances[0] < 100 and recent_scar_distances[19] < 50:
+                            elif 0 < recent_scar_distances[0] - recent_scar_distances[19] < 80 and recent_scar_distances[19] < 50:
                                 # 따라잡히고 있을때
                                 print(target_ip,'쫓아와!')
                                 result['data']['acc'] = False

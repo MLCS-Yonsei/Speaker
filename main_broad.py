@@ -44,6 +44,7 @@ def init_var():
         'playing': False,
         'outro': False,
         'finish': False,
+        'before_start': False,
         'lap_distance_t': 0,
         'overtake_r0_t0': None,
         'prev_crash': None,
@@ -57,6 +58,7 @@ def init_var():
 def reset_game_var(var):
     var['outro'] = False
     var['finish'] = False
+    var['before_start'] = False
     var['lap_distance_t'] = 0
     var['overtake_r0_t0'] = None
     var['prev_crash'] = None
@@ -204,9 +206,11 @@ while True:
             result = {}
             result['flag'] = 'before_start'
             result['data'] = True
-            robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'BR', '', ''))
-            robot_speaking_thread.start()
-            robot_speaking_thread.join()
+            if _v['before_start'] == False:
+                robot_speaking_thread = Thread(target = audio_player.play, args = (result, 'BR', '', ''))
+                robot_speaking_thread.start()
+                robot_speaking_thread.join()
+                _v['before_start'] = True
             # audio_player.play(result, 'BR', '', '')
 
         elif stage == 3 and gamedata["gamedata"]["participants"]["mParticipantInfo"][0]["mCurrentLapDistance"] < 5100:

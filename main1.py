@@ -71,7 +71,7 @@ def reset_var(var):
 
 def launch_cam(var, target_ip):
     if target_ip == '10.0.0.200:9090':
-        var['cam_id'] = 0
+        var['cam_id'] = 1
         var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
     if target_ip == '10.0.0.121:9090':
         var['cam_id'] = 0
