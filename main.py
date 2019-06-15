@@ -16,8 +16,8 @@ import pyudev
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
-    '192.168.0.2:9090',
-    '192.168.0.52:9090'
+    '192.168.0.2:9090'
+    # '192.168.0.52:9090'
 ]
 dev = True
 audio_overlap = True
@@ -74,6 +74,7 @@ def reset_var(var):
 #     return var
 
 def launch_cam(var, target_ip):
+    '''
     context = pyudev.Context()
 
     for device in context.list_devices(subsystem='usb'):
@@ -100,6 +101,10 @@ def launch_cam(var, target_ip):
         if target_ip == '192.168.0.52:9090':
             var['cam_id'] = 0
             var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+    '''
+
+    var['cam_id'] = 0
+    var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
 
     return var
 
@@ -132,6 +137,8 @@ while True:
             파악이 끝나면 기본 안내멘트 재생.
             재생 후 양손이 디텍트되면 게임 스타트 매크로 시작. + 스타트 멘트 재생
             '''
+
+
             print(_v)
             if 'cam' in _v:
                 cam = _v['cam']
@@ -139,7 +146,8 @@ while True:
                 if _v['person_attr']['gender'] == None:
                     while True:
                         human_box = detect_human(cam)
-                        gender = detect_gender(human_box)
+                        # gender = detect_gender(human_box)
+                        gender = 'M'
                         print("13")
                         if gender is not False:
                             break
@@ -158,7 +166,8 @@ while True:
                         _v['intro'] = True
 
                     if _v['intro'] == True and _v['playing'] == False:
-                        hand_detection = detect_hand(cam)
+                        # hand_detection = detect_hand(cam)
+                        hand_detection = 1
                         print("#3", hand_detection)
 
                         if hand_detection == 1:

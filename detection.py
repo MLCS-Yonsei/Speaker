@@ -254,7 +254,8 @@ def crop_img(img,box):
 
 class Cam():
     def __init__(self, device_id, display=True):
-        self.cam = cv2.VideoCapture(int(device_id))   
+        # self.cam = cv2.VideoCapture(int(device_id))
+        self.cam = cv2.VideoCapture(0)  # for local
 
         if display:
             self.window_name = 'Cam'+str(device_id)
@@ -262,7 +263,7 @@ class Cam():
             # cv2.setMouseCallback(self.window_name,mouse_callback)
 
         if self.cam.isOpened() == False:
-            print('Can\'t open the CAM(%d)' % (CAM_ID))
+            print('Can\'t open the CAM(%d)' % (device_id))
             exit()
 
     def read(self):
