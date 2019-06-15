@@ -6,6 +6,17 @@ import requests
 from threading import Thread
 from utils import *
 import numpy as np
+from PIL import ImageGrab
+
+def screenshot(label):
+
+    now = time.localtime()
+    timestamp = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    filename = "screenshots/{}.png".format(label + timestamp)
+    img = ImageGrab.grab()
+    img.save(filename)
+    print("Screenshot saved: {}".format(filename))
+
 
 def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
     gamedata = data['gamedata']
@@ -73,14 +84,17 @@ def lap_distance(data, target_ip, t):
         elif 90 < lap_distance < 95 :
             # print('터널입니다')
             result['data']['event'] = 'tunnel'
+            screenshot('tunnel')
 
         elif 790 < lap_distance < 810 :
             # print('앞에 급한 커브입니다')
             result['data']['event'] = 'deep_curve'
+            screenshot('curve_deep')
         
         elif 1240 < lap_distance < 1260 :
             # print('앞에 급한 커브입니다')
             result['data']['event'] = 'deep_curve'
+            screenshot('curve_deep')
 
         elif 1440 < lap_distance < 1460 :
             # 1/4 지점
@@ -89,11 +103,13 @@ def lap_distance(data, target_ip, t):
         elif 1890 < lap_distance < 1910 :
             # print('앞에 완만한 s자 커브입니다')
             result['data']['event'] = 'curve'
+            screenshot('curve_mild_s')
 
         elif 2490 < lap_distance < 2510 :
             # print('앞에 완만한 s자 커브입니다')
             result['data']['event'] = 'curve'
-        
+            screenshot('curve_mild_s')
+
         elif 2890 < lap_distance < 2810 :
             # 1/2 지점
             result['data']['event'] = 'section_2'
@@ -101,6 +117,7 @@ def lap_distance(data, target_ip, t):
         elif 3290 < lap_distance < 3300 :
             # print('이제부터 직선 구간입니다')
             result['data']['event'] = 'straight'
+            screenshot('straight')
 
         elif 4320 < lap_distance < 4330 :
             # 3/4 지점
@@ -204,6 +221,8 @@ def overtake(data, target_ip, r0_t0):
                     if r0_t0 > r0_t1:
                         # Overtaked
                         print(target_ip,'추월')
+                        screenshot('overtake')
+
                         try:
                             c = ranks.index(r0_t1 + 1)
                             status = True
@@ -212,6 +231,8 @@ def overtake(data, target_ip, r0_t0):
                     elif r0_t0 < r0_t1:
                         # Overtaken
                         print(target_ip,'추월당함')
+                        screenshot('overtaken')
+
                         try:
                             c = ranks.index(r0_t1 - 1)
                             status = False
@@ -373,10 +394,13 @@ def chase(data, target_ip, recent_fcar_distances, recent_scar_distances, msg_rat
                                 # 잘 쫓아가고 있을때
                                 print(target_ip,'잘 쫒아감!')
                                 result['data']['acc'] = True
+                                screenshot('chasing')
+
                             elif recent_fcar_distances[19] - recent_fcar_distances[0] > 100 and recent_fcar_distances[19] < 50:
                                 # 잘 쫓아가지 못할때
                                 print(target_ip,'잘 못쫒아감!')
                                 result['data']['acc'] = False
+                                screenshot('cheerup')
 
                             if result['data']['acc'] != '':
                                 return result, recent_fcar_distances, recent_scar_distances
@@ -480,3 +504,4 @@ def speed_check(data, target_ip, fp_dist, fp_sp):
         result = False
 
     return result
+
