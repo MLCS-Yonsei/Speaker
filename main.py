@@ -1,6 +1,7 @@
 # send_crest_request
 from utils import *
-from detection import Cam, detect_hand, detect_human, detect_gender
+# from detection import Cam, detect_hand, detect_human, detect_gender
+from detection import Cam
 from audioPlayer import audioPlayer
 
 import time
@@ -145,7 +146,7 @@ while True:
                 print(_v['person_attr'])
                 if _v['person_attr']['gender'] == None:
                     while True:
-                        human_box = detect_human(cam)
+                        # human_box = detect_human(cam)
                         # gender = detect_gender(human_box)
                         gender = 'M'
                         print("13")

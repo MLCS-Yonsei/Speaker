@@ -26,6 +26,7 @@ from hand_tracking.utils import detector_utils as detector_utils
 import cv2
 import datetime
 
+'''
 def detect_gender(image):
     face_detect = face_detection_model('dlib', './bin/age_gender/Model/shape_predictor_68_face_landmarks.dat')
     try:
@@ -104,6 +105,8 @@ def detect_human(cam):
                 # plt.show()
 
     return crop_img(frame, person_box)
+
+
 
 def detect_objects(image_np, sess, detection_graph, category_index, mot_tracker):
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
@@ -242,6 +245,7 @@ def detect_hand(cam):
 
         if cv2.waitKey(25) & 0xFF == ord('q'):
             return False
+'''
 
 def crop_img(img,box):
     y,x,d = img.shape
