@@ -17,7 +17,7 @@ from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, c
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
-    '192.168.0.6:9090'
+    '192.168.0.31:9090'
     # '192.168.0.52:9090'
 ]
 dev = True
@@ -132,7 +132,7 @@ prev_time = time.time()
 while True:
     for target_ip in target_ips:
 
-        if time.time() - prev_time < 0.5:
+        if time.time() - prev_time < 0.1:
             continue
         prev_time = time.time()
 
