@@ -8,11 +8,13 @@ from utils import *
 import numpy as np
 from PIL import ImageGrab
 
+distance_offset = -10  # minus -> delay nav capture
+
 def screenshot(label):
 
     now = time.localtime()
     timestamp = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-    filename = "screenshots/{}.png".format(label + timestamp)
+    filename = "screenshots/{}/{}.png".format(label, label + timestamp)
     img = ImageGrab.grab()
     img.save(filename)
     print("Screenshot saved: {}".format(filename))
@@ -51,7 +53,8 @@ def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
     return lap_distance, t
 
 def lap_distance(data, target_ip, t):
-    msg_rate = 0.003
+    # msg_rate = 0.003
+    msg_rate = 1
 
     gamedata = data['gamedata']
     current_time = data['current_time']
@@ -76,6 +79,8 @@ def lap_distance(data, target_ip, t):
     }
     
     if racestate == 2:
+
+        lap_distance = lap_distance + distance_offset
         if t == 0 and racestate == 2 and lap_distance < 100:
             print(target_ip,'start')
             t += 1
@@ -258,6 +263,7 @@ def overtake(data, target_ip, r0_t0):
                 
     return result, r0_t0
 
+
 def crash(data, target_ip, prev_crash, msg_rate):
     gamedata = data['gamedata']
     current_time = data['current_time']
@@ -431,7 +437,7 @@ def chase(data, target_ip, recent_fcar_distances, recent_scar_distances, msg_rat
                                 'chasing': False,
                                 'rank': rank,
                                 'alone': False
-                            }  
+                            }
 
                             if recent_scar_distances[19] - recent_scar_distances[0] > 100 and 50 < recent_scar_distances[19]:
                                 # 잘 도망가고 있을때

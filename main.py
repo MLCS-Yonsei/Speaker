@@ -1,7 +1,7 @@
 # send_crest_request
 from utils import *
 # from detection import Cam, detect_hand, detect_human, detect_gender
-from detection import Cam
+# from detection import Cam
 from audioPlayer import audioPlayer
 
 import time
@@ -21,7 +21,7 @@ target_ips = [
     # '192.168.0.52:9090'
 ]
 dev = True
-audio_overlap = True
+audio_overlap = True  # True False 반대인듯??
 enable_broadcasting = False
 oposite_gender_speaker = True
 enable_half_voice = False
