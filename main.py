@@ -12,12 +12,12 @@ import requests
 
 from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing
 
-import multiprocessing as mp
-import pyudev
+# import multiprocessing as mp
+# import pyudev
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
-    '192.168.0.2:9090'
+    '192.168.0.6:9090'
     # '192.168.0.52:9090'
 ]
 dev = True
@@ -105,7 +105,9 @@ def launch_cam(var, target_ip):
     '''
 
     var['cam_id'] = 0
-    var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+    # var['cam'] = Cam(variables[target_ip]['cam_id'], dev)
+    var['cam'] = None
+
 
     return var
 
@@ -124,8 +126,16 @@ for target_ip in target_ips:
     variables[target_ip] = launch_cam(variables[target_ip], target_ip)
     variables[target_ip] = launch_audio(variables[target_ip], target_ip)
 
+
+prev_time = time.time()
+
 while True:
     for target_ip in target_ips:
+
+        if time.time() - prev_time < 0.5:
+            continue
+        prev_time = time.time()
+
         stage, gamedata = get_crest_data(target_ip)
         # print("Stage:", stage)
         # stage = 1

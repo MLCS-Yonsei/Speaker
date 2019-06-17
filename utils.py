@@ -36,15 +36,17 @@ def send_crest_requset(url, flag, option):
 
     #     return False
 
-    r = requests.get(url, timeout=1)
+
+    r = requests.get(url, timeout=0.4)
 
     data = json.loads(r.text)
-    # print("CREST",data)
+    print("CREST",data)
 
     return data
 
 def get_crest_data(target_ip):
     # 데이터 가져오기
+    print("crest get call")
     crest_data = send_crest_requset(target_ip, "crest-monitor", {})
 
     try:
@@ -73,7 +75,7 @@ def get_crest_data(target_ip):
             if 'participants' in crest_data:
                 current_time = str(datetime.datetime.now())
                 gamedata = {'current_time': current_time, 'gamedata': crest_data}
-                # print("Game Data",gamedata)
+                print("Game Data",gamedata)
             else:
                 gamedata = None
 
