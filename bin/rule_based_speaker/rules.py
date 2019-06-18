@@ -64,10 +64,11 @@ def get_images():
             img = open(filename, 'wb')
 
             while filesize > 0:
+
                 data = sock.recv(100000)
                 img.write(data)
+                filesize -= len(data)
 
-                filesize -= 100000
 
             img.close()
 

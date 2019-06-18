@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4caadd8-6f3c-411e-b8e8-7d0a636be8e4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/rule_based_speaker/rules.py" beforeDir="false" afterPath="$PROJECT_DIR$/bin/rule_based_speaker/rules.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screenshot_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +20,8 @@
           <file leaf-file-name="rules.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/bin/rule_based_speaker/rules.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="215">
-                  <caret line="60" column="31" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="31" />
+                <state relative-caret-position="167">
+                  <caret line="60" selection-start-line="60" selection-end-line="60" />
                   <folding>
                     <element signature="e#0#13#0" expanded="true" />
                   </folding>
@@ -34,7 +33,7 @@
             <entry file="file://$PROJECT_DIR$/utils.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="270">
-                  <caret line="18" column="4" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+                  <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -61,8 +60,8 @@
           <file leaf-file-name="screenshot_server.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/screenshot_server.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+                <state relative-caret-position="302">
+                  <caret line="29" column="36" lean-forward="true" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
                   <folding>
                     <element signature="e#0#47#0" expanded="true" />
                   </folding>
@@ -74,7 +73,7 @@
             <entry file="file://$PROJECT_DIR$/audioPlayer.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="29">
-                  <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+                  <caret line="70" selection-start-line="70" selection-end-line="70" />
                 </state>
               </provider>
             </entry>
@@ -83,7 +82,7 @@
             <entry file="file://$PROJECT_DIR$/player.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="547">
-                  <caret line="220" column="53" lean-forward="true" selection-start-line="220" selection-start-column="53" selection-end-line="220" selection-end-column="53" />
+                  <caret line="220" column="53" selection-start-line="220" selection-start-column="53" selection-end-line="220" selection-end-column="53" />
                   <folding>
                     <element signature="e#0#77#0" expanded="true" />
                   </folding>
@@ -124,7 +123,6 @@
       <find>enable_broadcasting</find>
       <find>datetime</find>
       <find>overtake_result</find>
-      <find>chase</find>
       <find>chasin</find>
       <find>audio_overlap</find>
       <find>print</find>
@@ -146,6 +144,7 @@
       <find>get_images</find>
       <find>overtake</find>
       <find>images</find>
+      <find>chase</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -382,10 +381,10 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17633042" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17633042" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2551724" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2551724" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.3273632" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -411,23 +410,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/detection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3600">
-          <caret line="243" column="41" lean-forward="true" selection-start-line="243" selection-start-column="41" selection-end-line="243" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../tftf/연습장/cvcvcv/ipwebcam.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/rule_based_speaker/rules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -696,14 +678,14 @@
     <entry file="file://$PROJECT_DIR$/audioPlayer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="29">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/player.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="547">
-          <caret line="220" column="53" lean-forward="true" selection-start-line="220" selection-start-column="53" selection-end-line="220" selection-end-column="53" />
+          <caret line="220" column="53" selection-start-line="220" selection-start-column="53" selection-end-line="220" selection-end-column="53" />
           <folding>
             <element signature="e#0#77#0" expanded="true" />
           </folding>
@@ -723,17 +705,23 @@
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="18" column="4" lean-forward="true" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/screenshots/tunnel/tunnel2019061906035503.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screenshots/overtaken/overtaken2019061906160208.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/bin/rule_based_speaker/rules.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="60" column="31" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="31" />
+        <state relative-caret-position="167">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -742,8 +730,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/screenshot_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="302">
+          <caret line="29" column="36" lean-forward="true" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>

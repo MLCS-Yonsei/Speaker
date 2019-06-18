@@ -23,18 +23,23 @@ def send_images():
         client_sock.sendall('aa'.encode('utf-8'))
         time.sleep(0.01)
         client_sock.sendall(img.encode('utf-8'))
+        print("filename:", img)
         time.sleep(0.01)
 
         filesize = str(os.path.getsize(img))
+        print("filesize:", filesize)
         client_sock.sendall(filesize.encode('utf-8'))
         time.sleep(0.01)
 
         f = open(img, 'rb')
-        line = f.read(100000)
+        line = f.read(1000)
+        cnt = 0
         while line:
             client_sock.sendall(line)
-            line = f.read(100000)
-
+            line = f.read(1000)
+            cnt += 1
+            print("sent line:", cnt)
+        print("sending done")
         f.close()
 
     client_sock.sendall('bb'.encode('utf-8'))
