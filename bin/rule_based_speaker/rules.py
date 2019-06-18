@@ -48,15 +48,18 @@ def screenshot(label):
 
 def get_images():
     sock.send('done'.encode('utf-8'))
-    msg = sock.recv(32)
 
     while True:
+        msg = sock.recv(32)
         if msg.decode('utf-8') == 'bb':
+            print("get images done")
             break
 
         if msg.decode('utf-8') == 'aa':  # 이미지 한 장 들어옴
             filename = sock.recv(1000).decode('utf-8')
+            print("file name:", filename)
             filesize = int(sock.recv(1000).decode('utf-8'))
+            print("file size:", filesize)
 
             img = open(filename, 'wb')
 

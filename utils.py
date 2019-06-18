@@ -40,13 +40,12 @@ def send_crest_requset(url, flag, option):
     r = requests.get(url, timeout=0.4)
 
     data = json.loads(r.text)
-    print("CREST",data)
 
     return data
 
 def get_crest_data(target_ip):
     # 데이터 가져오기
-    print("crest get call")
+    # print("crest get call")
     crest_data = send_crest_requset(target_ip, "crest-monitor", {})
 
     try:

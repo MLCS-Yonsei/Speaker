@@ -140,8 +140,11 @@ while True:
         if time.time() - prev_time < 0.1:
             continue
         prev_time = time.time()
-
-        stage, gamedata = get_crest_data(target_ip)
+        try:
+            stage, gamedata = get_crest_data(target_ip)
+        except:
+            print("timeout error")
+            continue
         # print("Stage:", stage)
         # stage = 1
         _v = variables[target_ip]
@@ -324,7 +327,7 @@ while True:
                         _v['audio_thread'] = None
                         _v['outro'] = True
 
-                get_images()
+            get_images()
 
             _v = reset_var(_v)
         elif stage == 5:
