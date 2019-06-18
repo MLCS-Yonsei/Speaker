@@ -8,27 +8,65 @@ from utils import *
 import numpy as np
 from PIL import ImageGrab
 import time
+from socket import socket, AF_INET, SOCK_STREAM
 
-distance_offset = -10  # minus -> delay nav capture
 
-def screenshot_thread(label):
-    start = time.time()
-    count = 0
+distance_offset = -100  # minus -> delay nav capture
+remote_screenshot = True
 
-    now = time.localtime()
-    while time.time() - start < 5:
-        count += 1
-        timestamp = "%04d%02d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec, count)
-        filename = "screenshots/{}/{}.png".format(label, label + timestamp)
-        img = ImageGrab.grab()
-        img.save(filename)
-        print("Screenshot saved: {}".format(filename))
+
+if remote_screenshot:
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.connect(('192.168.0.31', 9000))
+
+    print("Connected to Screenshot Server")
+
+
+def screenshot_thread(label, now, count):
+
+    timestamp = "%04d%02d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec, count)
+    filename = "screenshots/{}/{}.png".format(label, label + timestamp)
+    img = ImageGrab.grab()
+    img.save(filename)
+    print("Screenshot saved: {}".format(filename))
 
 
 def screenshot(label):
 
-    thread = Thread(target=screenshot_thread, args=(label,))
-    thread.start()
+    if remote_screenshot:
+        sock.send(label.encode('utf-8'))
+    else:
+        start = time.time()
+        count = 0
+        now = time.localtime()
+
+        while time.time() - start < 5:
+            count += 1
+            thread = Thread(target=screenshot_thread, args=(label, now, count))
+            thread.start()
+
+
+def get_images():
+    sock.send('done'.encode('utf-8'))
+    msg = sock.recv(32)
+
+    while True:
+        if msg.decode('utf-8') == 'bb':
+            break
+
+        if msg.decode('utf-8') == 'aa':  # 이미지 한 장 들어옴
+            filename = sock.recv(1000).decode('utf-8')
+            filesize = int(sock.recv(1000).decode('utf-8'))
+
+            img = open(filename, 'wb')
+
+            while filesize > 0:
+                data = sock.recv(100000)
+                img.write(data)
+
+                filesize -= 100000
+
+            img.close()
 
 
 

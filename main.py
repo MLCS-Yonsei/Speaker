@@ -8,6 +8,7 @@ import time
 import random
 from threading import Thread
 
+
 import requests 
 
 from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing
@@ -26,6 +27,7 @@ enable_broadcasting = False
 oposite_gender_speaker = True
 enable_half_voice = False
 car_position_reset_time = 5
+
 
 def init_var():
     return {
@@ -122,10 +124,13 @@ for target_ip in target_ips:
     variables[target_ip] = init_var()
 
 local_audio_player = audioPlayer('localhost')
+
+
+
+
 for target_ip in target_ips:
     variables[target_ip] = launch_cam(variables[target_ip], target_ip)
     variables[target_ip] = launch_audio(variables[target_ip], target_ip)
-
 
 prev_time = time.time()
 
@@ -294,6 +299,7 @@ while True:
             완주
             종료 멘트 재생, stage 1로 대기
             '''
+
 
             if _v['outro'] is False:
                 if audio_overlap is False:
