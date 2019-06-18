@@ -11,7 +11,7 @@ import time
 
 distance_offset = -10  # minus -> delay nav capture
 
-def screenshot(label):
+def screenshot_thread(label):
     start = time.time()
     count = 0
 
@@ -23,6 +23,14 @@ def screenshot(label):
         img = ImageGrab.grab()
         img.save(filename)
         print("Screenshot saved: {}".format(filename))
+
+
+def screenshot(label):
+
+    thread = Thread(target=screenshot_thread, args=(label,))
+    thread.start()
+
+
 
 
 def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
