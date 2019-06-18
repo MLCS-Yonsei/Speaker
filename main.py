@@ -11,7 +11,7 @@ from threading import Thread
 
 import requests 
 
-from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing
+from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing, get_images
 
 # import multiprocessing as mp
 # import pyudev
@@ -323,6 +323,8 @@ while True:
                         # print("Still Playing audio")
                         _v['audio_thread'] = None
                         _v['outro'] = True
+
+                get_images()
 
             _v = reset_var(_v)
         elif stage == 5:

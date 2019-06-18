@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4caadd8-6f3c-411e-b8e8-7d0a636be8e4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/rule_based_speaker/rules.py" beforeDir="false" afterPath="$PROJECT_DIR$/bin/rule_based_speaker/rules.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +15,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.4640351">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="rules.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="rules.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/bin/rule_based_speaker/rules.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="526">
-                  <caret line="68" column="23" lean-forward="true" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
+                <state relative-caret-position="456">
+                  <caret line="48" column="14" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="14" />
                   <folding>
                     <element signature="e#0#13#0" expanded="true" />
                   </folding>
@@ -29,11 +27,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/utils.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="465">
-                  <caret line="39" column="11" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="11" />
+                <state relative-caret-position="120">
+                  <caret line="8" column="15" lean-forward="true" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -57,7 +55,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="screenshot_server.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="screenshot_server.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/screenshot_server.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="455">
@@ -90,11 +88,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="158">
-                  <caret line="301" selection-start-line="301" selection-end-line="301" />
+                <state relative-caret-position="284">
+                  <caret line="228" column="53" selection-start-line="228" selection-start-column="53" selection-end-line="228" selection-end-column="53" />
                   <folding>
                     <element signature="e#21#40#0" expanded="true" />
                   </folding>
@@ -124,7 +122,6 @@
       <find>enable_broadcasting</find>
       <find>datetime</find>
       <find>overtake_result</find>
-      <find>overtake</find>
       <find>chase</find>
       <find>chasin</find>
       <find>audio_overlap</find>
@@ -145,6 +142,7 @@
       <find>remote_screenshot</find>
       <find>play</find>
       <find>get_images</find>
+      <find>overtake</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -158,9 +156,9 @@
         <option value="$PROJECT_DIR$/detection.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/../../tftf/연습장/cvcvcv/ipwebcam.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/bin/rule_based_speaker/rules.py" />
         <option value="$PROJECT_DIR$/screenshot_server.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -661,10 +659,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/screenshot_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="37" column="45" lean-forward="true" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/rule_based_speaker/rules.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="48" column="14" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="39" column="11" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="11" />
+        <state relative-caret-position="120">
+          <caret line="8" column="15" lean-forward="true" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -673,30 +691,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="301" selection-start-line="301" selection-end-line="301" />
+        <state relative-caret-position="284">
+          <caret line="228" column="53" selection-start-line="228" selection-start-column="53" selection-end-line="228" selection-end-column="53" />
           <folding>
             <element signature="e#21#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/rule_based_speaker/rules.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="68" column="23" lean-forward="true" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screenshot_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="37" column="45" lean-forward="true" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
           </folding>
         </state>
       </provider>
