@@ -13,11 +13,12 @@ distance_offset = -10  # minus -> delay nav capture
 
 def screenshot(label):
     start = time.time()
+    count = 0
 
     while time.time() - start < 0.1:
-
+        count += 1
         now = time.localtime()
-        timestamp = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        timestamp = "%04d%02d%02d%02d%02d%02d%02" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec, count)
         filename = "screenshots/{}/{}.png".format(label, label + timestamp)
         img = ImageGrab.grab()
         img.save(filename)
