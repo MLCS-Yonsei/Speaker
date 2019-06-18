@@ -7,17 +7,21 @@ from threading import Thread
 from utils import *
 import numpy as np
 from PIL import ImageGrab
+import time
 
 distance_offset = -10  # minus -> delay nav capture
 
 def screenshot(label):
+    start = time.time()
 
-    now = time.localtime()
-    timestamp = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-    filename = "screenshots/{}/{}.png".format(label, label + timestamp)
-    img = ImageGrab.grab()
-    img.save(filename)
-    print("Screenshot saved: {}".format(filename))
+    while time.time() - start < 0.1:
+
+        now = time.localtime()
+        timestamp = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+        filename = "screenshots/{}/{}.png".format(label, label + timestamp)
+        img = ImageGrab.grab()
+        img.save(filename)
+        print("Screenshot saved: {}".format(filename))
 
 
 def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
