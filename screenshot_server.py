@@ -19,26 +19,26 @@ def send_images():
     global screenshots
 
     for img in screenshots:
-        # 'aa', 파일이름, 파일사이즈 순서로 보냄
+        # 'aa', 파일이름사이즈, 파일이름, 파일사이즈 순서로 보냄
         client_sock.sendall('aa'.encode('utf-8'))
-        time.sleep(0.01)
+        client_sock.sendall(str(len(img)).encode())
         client_sock.sendall(img.encode('utf-8'))
-        print("filename:", img)
+        # print("filename:", img)
         time.sleep(0.01)
 
-        filesize = str(os.path.getsize(img))
+        filesize = os.path.getsize(img)
         print("filesize:", filesize)
-        client_sock.sendall(filesize.encode('utf-8'))
+
+        client_sock.sendall(("%08d" % filesize).encode('utf-8'))
         time.sleep(0.01)
 
         f = open(img, 'rb')
         line = f.read(1000)
-        cnt = 0
+
         while line:
             client_sock.sendall(line)
             line = f.read(1000)
-            cnt += 1
-            print("sent line:", cnt)
+
         print("sending done")
         f.close()
 
@@ -49,6 +49,7 @@ def send_images():
 
 
 def screenshot_thread(label, now, count):
+    global screenshots
 
     timestamp = "%04d%02d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec, count)
     filename = "screenshots/{}/{}.png".format(label, label + timestamp)

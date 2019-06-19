@@ -50,22 +50,26 @@ def get_images():
     sock.send('done'.encode('utf-8'))
 
     while True:
-        msg = sock.recv(32)
+        msg = sock.recv(2)
+        if not msg:
+            continue
+
         if msg.decode('utf-8') == 'bb':
             print("get images done")
             break
 
         if msg.decode('utf-8') == 'aa':  # 이미지 한 장 들어옴
-            filename = sock.recv(1000).decode('utf-8')
+            filename_len = int(sock.recv(2).decode())
+            filename = sock.recv(filename_len).decode('utf-8')
             print("file name:", filename)
-            filesize = int(sock.recv(1000).decode('utf-8'))
+            filesize = int(sock.recv(8).decode('utf-8'))
             print("file size:", filesize)
 
             img = open(filename, 'wb')
 
             while filesize > 0:
 
-                data = sock.recv(100000)
+                data = sock.recv(1000)
                 img.write(data)
                 filesize -= len(data)
 
