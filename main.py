@@ -11,14 +11,14 @@ from threading import Thread
 
 import requests 
 
-from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing, get_images
+from bin.rule_based_speaker.rules import lap_distance, overtake, crash, chase, check_reset_timing
 
 # import multiprocessing as mp
 # import pyudev
 
 target_ips = [
     # 'ubuntu.hwanmoo.kr:8080',
-    '192.168.0.31:9090'
+    '192.168.0.32:9090'
     # '192.168.0.52:9090'
 ]
 dev = True

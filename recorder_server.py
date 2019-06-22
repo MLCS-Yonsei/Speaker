@@ -32,11 +32,13 @@ def convert_time(current_time):
 def record(msg):
     label = msg.split(":")[1]
     t = convert_time(time.time())
+    print("label:",label)
     while True:
         try:
-            f = open(timestamp, 'a')
-            f.write("{} {}".format(t, label))
-            f.close()
+            file = open(timestamp, 'a')
+            file.write("{} {}".format(t, label))
+            file.close()
+            print("file saved")
             break
 
         except:

@@ -17,7 +17,7 @@ remote_screenshot = True
 
 if remote_screenshot:
     sock = socket(AF_INET, SOCK_STREAM)
-    sock.connect(('192.168.0.31', 9000))
+    sock.connect(('192.168.0.32', 9000))
 
     print("Connected to Screenshot Server")
 
@@ -35,6 +35,7 @@ def screenshot(label):
 
     if remote_screenshot:
         data = "{:>32}".format(":"+label)
+        print(data)
         sock.send(data.encode('utf-8'))
     else:
         start = time.time()
