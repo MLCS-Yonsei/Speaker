@@ -327,7 +327,7 @@ while True:
                         _v['audio_thread'] = None
                         _v['outro'] = True
 
-            get_images()
+            # get_images()
 
             _v = reset_var(_v)
         elif stage == 5:

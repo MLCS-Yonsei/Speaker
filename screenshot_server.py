@@ -41,7 +41,7 @@ def send_images():
 
         print("sending done")
         f.close()
-
+        time.sleep(0.1)
     client_sock.sendall('bb'.encode('utf-8'))
 
     screenshots = []

@@ -34,7 +34,8 @@ def screenshot_thread(label, now, count):
 def screenshot(label):
 
     if remote_screenshot:
-        sock.send(label.encode('utf-8'))
+        data = "{:>32}".format(":"+label)
+        sock.send(data.encode('utf-8'))
     else:
         start = time.time()
         count = 0
@@ -45,7 +46,7 @@ def screenshot(label):
             thread = Thread(target=screenshot_thread, args=(label, now, count))
             thread.start()
 
-
+'''
 def get_images():
     sock.send('done'.encode('utf-8'))
 
@@ -72,11 +73,8 @@ def get_images():
                 data = sock.recv(1000)
                 img.write(data)
                 filesize -= len(data)
-
-
             img.close()
-
-
+'''
 
 
 def check_reset_timing(data, d, t, target_ip, car_position_reset_time):
@@ -256,7 +254,8 @@ def get_sim_name(target_ip, gamedata):
                 return i
 
     return False
-    
+
+
 def overtake(data, target_ip, r0_t0):
     gamedata = data['gamedata']
     current_time = data['current_time']
