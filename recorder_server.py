@@ -35,8 +35,8 @@ def record(msg):
     print("label:",label)
     while True:
         try:
-            file = open(timestamp, 'a')
-            file.write("{} {}".format(t, label))
+            file = open(filename, 'a')
+            file.write("{} {}\n".format(t, label))
             file.close()
             print("file saved")
             break
