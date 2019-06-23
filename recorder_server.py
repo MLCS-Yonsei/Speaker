@@ -15,7 +15,7 @@ now = time.localtime()
 timestamp = "%04d%02d%02d%02d%02d%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
 filename = timestamp + '.txt'
 f = open(filename, 'w')
-f.write("start time: {}".format(timestamp))
+f.write("start time: {}\n".format(timestamp))
 f.close()
 
 
@@ -53,10 +53,6 @@ while True:
     msg = recv.decode('utf-8')
     thread = Thread(target=record, args=(msg,))
     thread.start()
-
-
-
-
 
 
 

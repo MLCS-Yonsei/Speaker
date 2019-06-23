@@ -176,6 +176,7 @@ while True:
 
                     print("#1")
                 else:
+                    _v['intro'] = True  # for local
                     if _v['intro'] == False:
                         a_thread = Thread(target = playFile, args = (target_ip,'test_intro', ))
                         print("Playing intro file, sleep for ", 27, "Seconds")
